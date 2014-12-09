@@ -227,7 +227,7 @@ class WC_Product_Barcodes extends WC_Integration {
 	 * @return void
 	 */
 	public function format_price( $price ) {
-		return sprintf( '%s%f', get_woocommerce_currency_symbol(), wc_format_decimal( $price, 2 ) );
+		return get_woocommerce_currency_symbol() . wc_format_decimal( $price, 2 );
 	}
 	
 	/**
