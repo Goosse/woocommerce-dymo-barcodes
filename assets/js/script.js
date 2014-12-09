@@ -94,9 +94,14 @@
 		var name = $('.name:checked').map(function() {
 			return $.trim($(this).parent().text());
 		}).get().join(' ');
+		
+		var barcode = $('.barcode:checked').map(function() {
+			return $.trim('1234');
+		}).get().join(' ');
 
 		label.setObjectText('metadata', metadata);
 		label.setObjectText('product_name', name);
+		label.setObjectText('product_barcode', barcode);
 	}
 
 	// load label and defaults

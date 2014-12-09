@@ -43,6 +43,7 @@ class WC_Product_Barcodes extends WC_Integration {
 		$this->show_sku  		  = $this->get_option( 'show_sku' );
 		$this->show_price  		= $this->get_option( 'show_price' );
 		$this->show_option  	= $this->get_option( 'show_option' );
+		$this->show_barcode 	= $this->get_option( 'show_barcode' );
 		$this->use_sku  		  = $this->get_option( 'use_sku' );
 
 		// save settings
@@ -135,7 +136,7 @@ class WC_Product_Barcodes extends WC_Integration {
 				'default'    	  => 'medium',
 			),
 			'show_name'       => array (
-				'title'    		  => __( 'Barcode Preview Options', 'wc-product-barcodes' ),
+				'title'    		  => __( 'Label Options', 'wc-product-barcodes' ),
 				'label'    		  => __( 'Product Name', 'wc-product-barcodes' ),
 				'description'   => __( 'Display product name.', 'wc-product-barcodes' ),
 				'type'     		  => 'checkbox',
@@ -166,8 +167,16 @@ class WC_Product_Barcodes extends WC_Integration {
 				'label'    		  => __( 'Variant Option', 'wc-product-barcodes' ),
 				'description'   => __( 'Display variant option.', 'wc-product-barcodes' ),
 				'type'     		  => 'checkbox',
-				'checkboxgroup' => 'end',
 				'class'    		  => 'label-preview-option metadata',
+				'default'    	  => 'yes',
+				'desc_tip'		  => true
+			),
+			'show_barcode' 		=> array (
+				'label'    		  => __( 'Barcode', 'wc-product-barcodes' ),
+				'description'   => __( 'Display barcode.', 'wc-product-barcodes' ),
+				'type'     		  => 'checkbox',
+				'checkboxgroup' => 'end',
+				'class'    		  => 'label-preview-option barcode',
 				'default'    	  => 'yes',
 				'desc_tip'		  => true
 			),
@@ -244,7 +253,13 @@ class WC_Product_Barcodes extends WC_Integration {
 	public function output_label_data( $name, $price, $sku, $id, $option ) {
 		
 		$sku = $sku ? $sku : $id; // fallback to id if were using sku is empty and being used for barcode object
-		$barcode = $this->use_sku == 'yes' ? $sku : $id;		
+		
+		if( $this->show_barcode == 'yes' ) {
+  		$barcode = $this->use_sku == 'yes' ? $sku : $id;	
+		} else {
+  		$barcode = '';
+		}
+			
 		$name = $this->show_name == 'yes' ? $name  : '';
 		
 		$metadata = array();
