@@ -282,9 +282,9 @@ class WC_Product_Barcodes extends WC_Integration {
 	 * @return string
 	 */
 	public function submenu_page_callback() {
-		?>
+  ?>
 		<div class="wrap">
-			<h2><?php echo _e( 'Product Barcodes', 'wc-product-barcodes' ); ?></h2>
+			<h2><?php _e( 'Product Barcodes', 'wc-product-barcodes' ); ?></h2>
 			<div class="tablenav top">
 				<div class="actions alignleft">
 					<p><a href="<?php echo esc_url( $this->settings_url() ); ?>" class="button" title="<?php echo esc_attr_e( 'View Settings', 'wc-product-barcodes' ); ?>"><?php echo _e( 'Settings', 'wc-product-barcodes' ); ?></a></p>
@@ -306,7 +306,8 @@ class WC_Product_Barcodes extends WC_Integration {
 					</tr>
 				</thead>
 				<tbody>
-				<?php
+    <?php
+		
 		$products = $this->get_products();			
 		
 		if( $products ) :
@@ -368,18 +369,18 @@ class WC_Product_Barcodes extends WC_Integration {
 
 		$args = array(
 			'post_type'     	=> 'product',
-			'posts_per_page'   	=> apply_filters( 'woocommerce_product_barcodes_default_posts', 10 ) // only show 10 recent products by default
+			'posts_per_page'  => apply_filters( 'woocommerce_product_barcodes_default_posts', 10 ) // only show 10 recent products by default
 		);
 
-		if ( isset( $_REQUEST['id'] ) )
+		if ( isset( $_REQUEST['id'] ) ) {
 			$args['include'] = $_REQUEST['id'];
+		}
 
 		return get_posts( $args );
-
 	}
 
 	public function get_print_screen_link( $id ) {
-		return add_query_arg( array( 'page' => $this->id, 'id' => $id ), admin_url('edit.php?post_type=product') );
+		return add_query_arg( array( 'page' => $this->id, 'id' => $id ), admin_url( 'edit.php?post_type=product' ) );
 	}
 
 	/**
@@ -412,9 +413,8 @@ class WC_Product_Barcodes extends WC_Integration {
 	 * @return void
 	 */
 	public function product_data_field() {
-		global $post;
-    
-    ?>
+		global $post;   
+  ?>
     <div class="options_group hide_if_downloadable hide_if_virtual">
 		  <p class="form-field wcb_general_print_btn">
 			  <label for="wcb_general_print_btn"><?php _e( 'Barcodes', 'wc-product-barcodes' ); ?></label>
@@ -454,10 +454,13 @@ class WC_Product_Barcodes extends WC_Integration {
 		if ( $post_type == 'product' ) {
 			
 		$wp_list_table = _get_list_table( 'WP_Posts_List_Table' );
-		$action = $wp_list_table->current_action();
+		$action        = $wp_list_table->current_action();
 		
 		$allowed_actions = array( 'export_barcodes' );
-		if ( ! in_array( $action, $allowed_actions ) ) return;
+		
+		if ( ! in_array( $action, $allowed_actions ) ) {
+  		return;
+    }
 			
 			header( "Content-Type: text/csv;charset=utf-8" );
 			header( "Content-Disposition: attachment;filename=\"" . apply_filters( 'woocommerce_product_barcodes_export_filename', 'product_labels' ) . ".csv\"" );
@@ -465,9 +468,10 @@ class WC_Product_Barcodes extends WC_Integration {
 			header( "Expires: 0" );
 			
 			$post_ids = array_map( 'absint', (array) $_REQUEST['post'] );
-			$csv = fopen( 'php://output', 'w' );
+			$csv      = fopen( 'php://output', 'w' );
 			
 			$headers = __( 'product_name, price, sku, id, variant_option', 'wc-product-barcodes' ) ."\n";
+			
 			fwrite( $csv, $headers );
 			
 			foreach( $post_ids as $post_id ) {
