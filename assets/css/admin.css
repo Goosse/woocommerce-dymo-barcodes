@@ -1,0 +1,32 @@
+.product-barcodes th.product-title,
+.product-barcodes td.product-title {
+	width: 30%;
+}
+
+.product-barcodes th.product-price,
+.product-barcodes td.product-price {
+	width: 15%
+}
+
+.product-barcodes .product-price,
+.product-barcodes .product-sku,
+.product-barcodes .product-qty,
+.product-barcodes .product-id {
+	text-align: center;
+}
+
+input.product-label-input {
+	width: 100%
+}
+
+#woocommerce-dymo-print-preview {
+	color:#000;
+	width:325px;
+	position:relative;
+	background-color:#E9E9E9;
+	border:1px solid #D3D3D3;
+	margin-top:15px;
+	padding:10px;
+	text-align:center;
+	display:block;
+}
