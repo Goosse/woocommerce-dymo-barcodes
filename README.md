@@ -1,6 +1,6 @@
 Woocommerce Product Barcodes
 
-Allows printing of labels using a DYMO LabelWriter printer.
+Allows printing of product labels using a DYMO LabelWriter printer.
 
 == Installation ==
 

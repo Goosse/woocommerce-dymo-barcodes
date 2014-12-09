@@ -8,11 +8,11 @@ Stable tag: 1.0.0
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Allows printing of labels using a DYMO LabelWriter printer.
+Allows printing of WooCommerce product labels using a DYMO LabelWriter printer.
 
 == Description ==
 
-Allows printing of labels using a DYMO LabelWriter printer.
+Allows printing of WooCommerce product labels using a DYMO LabelWriter printer.
 
 == Installation ==
 
