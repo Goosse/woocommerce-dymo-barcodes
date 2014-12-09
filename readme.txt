@@ -1,6 +1,6 @@
 === Woocommerce Product Barcodes ===
 Contributors: Jack Gregory
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=E8MC9SA9U7LCY
+Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=info@platformplatform.com&item_name=Donation+for+WooCommerce+Product+Barcodes
 Tags: woocommerce, dymo, barcodes
 Requires at least: 3.9.1
 Tested up to: 3.9.1
