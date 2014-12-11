@@ -345,7 +345,7 @@ class WC_Product_Barcodes extends WC_Integration {
 							<td class="product-price"><?php echo ( $_variation->get_price_html() ? $_variation->get_price_html() : '<span class="na">&ndash;</span>' ); ?></td>
 							<td class="product-sku"><?php echo ( $_variation->sku ? $_variation->sku : '<span class="na">&ndash;</span>' ); ?></td>
 							<td class="product-id"><?php echo $_variation->get_variation_id(); ?></td>
-							<td class="product-qty"><?php echo ( $_variation->get_stock_quantity() ? $_variation->get_stock_quantity() : '<span class="na">&ndash;</span>' ); ?></td>
+							<td class="product-qty"><?php echo ( $_variation->managing_stock() ? $_variation->get_stock_quantity() : '<span class="na">&ndash;</span>' ); ?></td>
 							<td class="product-labels"><input type="number" class="product-label-input" value="0" min="0" tabindex="1"></td>
 							<?php echo $this->output_label_data( $_product->get_title(), $this->format_price( $_variation->get_price() ), $_variation->sku, $_variation->get_variation_id(), join(' / ', $attributes ) ); ?>
 						</tr>
@@ -358,7 +358,7 @@ class WC_Product_Barcodes extends WC_Integration {
 							<td class="product-price"><?php echo ( $_product->get_price_html() ? $_product->get_price_html() : '<span class="na">&ndash;</span>' ); ?></td>
 							<td class="product-sku"><?php echo ( $_product->get_sku() ? $_product->get_sku() : '<span class="na">&ndash;</span>' ); ?></td>
 							<td class="product-id"><?php echo $_product->id; ?></td>
-							<td class="product-qty"><?php echo ( $_product->get_total_stock() ? $_product->get_total_stock() : '<span class="na">&ndash;</span>' ); ?></td>
+							<td class="product-qty"><?php echo ( $_product->managing_stock() ? $_product->get_total_stock() : '<span class="na">&ndash;</span>' ); ?></td>
 							<td class="product-labels"><input type="number" class="product-label-input" value="0" min="0" tabindex="1"></td>
 							<?php echo $this->output_label_data( $_product->get_title(), $this->format_price( $_product->get_price() ), $_product->get_sku(), $_product->id, null ); ?>
 						</tr>
