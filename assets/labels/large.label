@@ -4,7 +4,7 @@
   <Id>Storage</Id>
   <PaperName>30258 Diskette</PaperName>
   <DrawCommands>
-   	<RoundRectangle X="0" Y="0" Width="3060" Height="3960" Rx="270" Ry="270"/>
+    <RoundRectangle X="0" Y="0" Width="3060" Height="3960" Rx="270" Ry="270"/>
   </DrawCommands>
   <ObjectInfo>
     <TextObject>
@@ -42,7 +42,7 @@
       <IsMirrored>False</IsMirrored>
       <IsVariable>True</IsVariable>
       <Text>123456</Text>
-      <Type>Code39</Type>
+      <Type>Code128Auto</Type>
       <Size>Medium</Size>
       <TextPosition>Bottom</TextPosition>
       <TextFont Family="Lucida Grande" Size="8" Bold="False" Italic="False" Underline="False" Strikeout="False"/>
@@ -78,6 +78,6 @@
         </Element>
       </StyledText>
     </TextObject>
-   <Bounds X="806.4894" Y="1034.065" Width="2540" Height="312.17"/>
+    <Bounds X="806.4894" Y="1034.065" Width="2540" Height="312.17"/>
   </ObjectInfo>
 </DieCutLabel>
