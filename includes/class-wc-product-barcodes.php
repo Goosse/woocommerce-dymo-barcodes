@@ -312,12 +312,12 @@ class WC_Product_Barcodes extends WC_Integration {
 				<thead>
 					<tr>
 						<th class="manage-column column-thumb">&nbsp;</th>
-						<th class="manage-column product-title"><?php echo _e( 'Product Name', 'wc-product-barcodes' ); ?></th>
-						<th class="manage-column product-price"><?php echo _e( 'Price', 'wc-product-barcodes' ); ?></th>
-						<th class="manage-column product-sku"><?php echo _e( 'SKU', 'wc-product-barcodes' ); ?></th>
-						<th class="manage-column product-id"><?php echo _e( 'ID', 'wc-product-barcodes' ); ?></th>
-						<th class="manage-column product-qty"><?php echo _e( 'Quantity', 'wc-product-barcodes' ); ?></th>
-						<th class="manage-column product-labels"><?php echo _e( 'Barcodes', 'wc-product-barcodes' ); ?></th>
+						<th class="manage-column product-title"><?php _e( 'Product Name', 'wc-product-barcodes' ); ?></th>
+						<th class="manage-column product-price"><?php _e( 'Price', 'wc-product-barcodes' ); ?></th>
+						<th class="manage-column product-sku"><?php _e( 'SKU', 'wc-product-barcodes' ); ?></th>
+						<th class="manage-column product-id"><?php _e( 'ID', 'wc-product-barcodes' ); ?></th>
+						<th class="manage-column product-qty"><?php _e( 'Quantity', 'wc-product-barcodes' ); ?></th>
+						<th class="manage-column product-labels"><?php _e( 'Barcodes', 'wc-product-barcodes' ); ?></th>
 					</tr>
 				</thead>
 				<tbody>
