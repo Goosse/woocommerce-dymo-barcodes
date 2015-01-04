@@ -2,10 +2,6 @@
 .sass-cache
 
 config.codekit
-assets/css/.sass-cache/e9a5076cede2010a4dc07ff04bf30f5a0d0f40c9/admin.scssc
-
-*.scssc
-
-assets/css/.sass-cache/e9a5076cede2010a4dc07ff04bf30f5a0d0f40c9/admin.scssc
+assets/css/.sass-cache/
 
 *.scssc
