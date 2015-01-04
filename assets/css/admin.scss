@@ -15,6 +15,21 @@
 	text-align: center;
 }
 
+.product-barcodes .column-thumb {
+  width: 52px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.product-barcodes td.column-thumb img {
+  margin: 0;
+  vertical-align: middle;
+  width: auto;
+  height: auto;
+  max-width: 40px;
+  max-height: 40px;
+}
+
 input.product-label-input {
 	width: 100%
 }
