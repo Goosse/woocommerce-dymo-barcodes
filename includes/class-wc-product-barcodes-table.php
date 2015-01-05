@@ -87,7 +87,7 @@ class WC_Product_Barcodes_Table extends WP_List_Table {
 					$attributes = $product->get_variation_attributes();
 
 					foreach ( $attributes as $name => $attribute ) {
-						$list_attributes[] = ucwords( $attribute );
+						$list_attributes[] = ucwords( str_replace( '-', ' ', $attribute ) );
 					}
 
 					echo '<br>' . implode( ' / ', $list_attributes );
@@ -135,7 +135,7 @@ class WC_Product_Barcodes_Table extends WP_List_Table {
               $attributes = $product->get_variation_attributes();
 
               foreach ( $attributes as $name => $attribute ) {
-                $list_attributes[] = ucwords( $attribute );
+                $list_attributes[] = ucwords( str_replace( '-', ' ', $attribute ) );
 					    }
 					    
               $metadata[] = $options['show_option'] == 'yes' ? join(' / ', $list_attributes ) : '';
