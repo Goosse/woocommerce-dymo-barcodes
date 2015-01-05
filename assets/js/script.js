@@ -41,18 +41,13 @@
 
 	function printLabel(data, event) {
 		try {
-			if (!label) throw wcb_params.label_loaded_error;
-			if (!labelSet) throw wcb_params.data_loaded_error;
-			//label.print(wcb_params.dymo_printer, null, data);
-			var printJob = label.printAndPollStatus(wcb_params.dymo_printer, null, data, function(printJob, printJobStatus) {
-				// output status
-				var result = (printJobStatus.status != dymo.label.framework.PrintJobStatus.ProcessingError && printJobStatus.status != dymo.label.framework.PrintJobStatus.Finished);
-				// update print status
-				//$('h2').text(printJobStatus.statusMessage);
-				return result;
-
-			}, 1000);
-
+			if (!label) {
+  			throw wcb_params.label_loaded_error;
+  		}
+			if (!labelSet) {
+  			throw wcb_params.data_loaded_error;
+  		}
+			label.print(wcb_params.dymo_printer, null, data);
 		} catch (event) {
 			alert(event.message || event);
 		}
@@ -61,12 +56,12 @@
 	function createLabelSet() {
 		var labelSet = new dymo.label.framework.LabelSetBuilder();
 
-		$('.variation').each(function(index, value) {
+		$('.wcb_barcodes').each(function(index, value) {
 			var $variation = $(this),
 				  name = $variation.find('input.product-name').val(),
           barcode = $variation.find('input.product-barcode').val(),
-      metadata = $variation.find('input.product-metadata').val(),
-      stock = $variation.find('input.product-label-input').val();
+          metadata = $variation.find('input.product-metadata').val(),
+          stock = $variation.find('input.product-label-input').val();
 
 			for (var i = 0; i < stock; i++) {
 				console.log(name + ' : ' + metadata + ' : ' + barcode);

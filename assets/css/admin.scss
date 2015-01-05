@@ -1,28 +1,27 @@
 /* Table Styles */
-.product-barcodes th.product-title,
-.product-barcodes td.product-title {
+.productbarcodes .column-product {
 	width: 30%;
 }
 
-.product-barcodes th.product-price,
-.product-barcodes td.product-price {
+.productbarcodes th.product-price,
+.productbarcodes td.product-price {
 	width: 15%
 }
 
-.product-barcodes .product-price,
-.product-barcodes .product-sku,
-.product-barcodes .product-qty,
-.product-barcodes .product-id {
+.productbarcodes .product-price,
+.productbarcodes .product-sku,
+.productbarcodes .product-qty,
+.productbarcodes .product-id {
 	text-align: center;
 }
 
-.product-barcodes .column-thumb {
+.productbarcodes .column-product_image {
   width: 52px;
   text-align: center;
   white-space: nowrap;
 }
 
-.product-barcodes td.column-thumb img {
+.productbarcodes td.column-product_image img {
   margin: 0;
   vertical-align: middle;
   width: auto;

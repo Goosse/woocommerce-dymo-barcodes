@@ -20,7 +20,7 @@ class WC_Product_Barcodes extends WC_Integration {
 	 * @var string
 	 */
 	protected $version = '1.0.1';
-
+	
 	/**
 	 * Init and hook in the integration.
 	 *
@@ -263,6 +263,7 @@ class WC_Product_Barcodes extends WC_Integration {
 		$name = $this->show_name == 'yes' ? $name  : '';
 		
 		$metadata = array();
+		
 		$metadata[] = $this->show_price == 'yes' ? $price : '';
 		$metadata[] = $this->show_sku == 'yes' ? $sku : '';	
 		$metadata[] = $this->show_option == 'yes' ? $option : '';
@@ -274,7 +275,7 @@ class WC_Product_Barcodes extends WC_Integration {
 
 		return $out;
 	}
-	
+
 	/**
 	 * Display warning notice if settings or printer havent been set up.
 	 *
@@ -286,7 +287,7 @@ class WC_Product_Barcodes extends WC_Integration {
 		global $typenow, $pagenow, $plugin_page;
 					
 		if ( $pagenow == 'edit.php' && $plugin_page == $this->id && $typenow == 'product' && $this->dymo_printer == '' ) {
-			echo sprintf("<div class=\"error\"><p>%s <a href=\"%s\">%s</a></p></div>", __('You need to set up your Dymo printer and label settings before you can print.', 'wc-product-barcodes' ), esc_url( $this->settings_url() ), __('View settings', 'wc-product-barcodes' ) );
+			echo sprintf( "<div class=\"error\"><p>%s <a href=\"%s\">%s</a></p></div>", __( 'You need to set up your Dymo printer and label settings before you can print.', 'wc-product-barcodes' ), esc_url( $this->settings_url() ), __( 'View settings', 'wc-product-barcodes' ) );
 		}
 	}
 
@@ -297,100 +298,27 @@ class WC_Product_Barcodes extends WC_Integration {
 	 * @return string
 	 */
 	public function submenu_page_callback() {
-  ?>
-		<div class="wrap">
+  	
+    include_once( 'class-wc-product-barcodes-table.php' );
+    
+    ?><div class="wrap">
 			<h2><?php _e( 'Product Barcodes', 'wc-product-barcodes' ); ?></h2>
 			<div class="tablenav top">
 				<div class="actions alignleft">
-					<p><a href="<?php echo esc_url( $this->settings_url() ); ?>" class="button" title="<?php echo esc_attr_e( 'View Settings', 'wc-product-barcodes' ); ?>"><?php echo _e( 'Settings', 'wc-product-barcodes' ); ?></a></p>
+					<p><a href="<?php echo esc_url( $this->settings_url() ); ?>" class="button" title="<?php echo esc_attr_e( 'View Settings', 'wc-product-barcodes' ); ?>"><?php _e( 'Settings', 'wc-product-barcodes' ); ?></a></p>
 				</div>
 				<div class="actions alignright">
 					<p><button type="button" id="wcb_print_btn" class="button button-primary" disabled="disabled"><?php echo __( 'Print <span class="print_no"></span> barcodes', 'wc-product-barcodes' ); ?></button></p>
 				</div>
 			</div>
-			<table class="wp-list-table widefat fixed product-barcodes">
-				<thead>
-					<tr>
-						<th class="manage-column column-thumb">&nbsp;</th>
-						<th class="manage-column product-title"><?php _e( 'Product Name', 'wc-product-barcodes' ); ?></th>
-						<th class="manage-column product-price"><?php _e( 'Price', 'wc-product-barcodes' ); ?></th>
-						<th class="manage-column product-sku"><?php _e( 'SKU', 'wc-product-barcodes' ); ?></th>
-						<th class="manage-column product-id"><?php _e( 'ID', 'wc-product-barcodes' ); ?></th>
-						<th class="manage-column product-qty"><?php _e( 'Quantity', 'wc-product-barcodes' ); ?></th>
-						<th class="manage-column product-labels"><?php _e( 'Barcodes', 'wc-product-barcodes' ); ?></th>
-					</tr>
-				</thead>
-				<tbody>
     <?php
 		
-		$products = $this->get_products();			
+		if ( ! class_exists( 'WC_Product_Barcodes_Table' ) )
+			return;
+
+		$report = new WC_Product_Barcodes_Table();
+		$report->output_report();
 		
-		if( $products ) :
-
-		foreach ( $products as $product ) :
-
-			$_product = get_product( $product->ID );
-			
-			if ( $_product->is_type( 'variable' ) && $_product->has_child() ) :
-
-				foreach ( $_product->get_children() as $child_id ) :
-
-					$_variation = $_product->get_child( $child_id );
-					$attributes = $this->get_attributes( $_variation );
-
-					?>
-						<tr class="variation">
-							<td class="thumb column-thumb"><a href="<?php echo get_edit_post_link( $_product->id ); ?>"><?php echo $_product->get_image(); ?></a></td>
-							<td class="product-title"><a href="<?php echo get_edit_post_link( $_product->id ); ?>"><?php echo $_product->get_title(); ?></a><br><?php echo join(' / ', $attributes ); ?></td>
-							<td class="product-price"><?php echo ( $_variation->get_price_html() ? $_variation->get_price_html() : '<span class="na">&ndash;</span>' ); ?></td>
-							<td class="product-sku"><?php echo ( $_variation->sku ? $_variation->sku : '<span class="na">&ndash;</span>' ); ?></td>
-							<td class="product-id"><?php echo $_variation->get_variation_id(); ?></td>
-							<td class="product-qty"><?php echo ( $_variation->managing_stock() ? $_variation->get_stock_quantity() : '<span class="na">&ndash;</span>' ); ?></td>
-							<td class="product-labels"><input type="number" class="product-label-input" value="0" min="0" tabindex="1"></td>
-							<?php echo $this->output_label_data( $_product->get_title(), $this->format_price( $_variation->get_price() ), $_variation->sku, $_variation->get_variation_id(), join(' / ', $attributes ) ); ?>
-						</tr>
-
-						<?php endforeach; else: ?>
-
-						<tr class="product variation">
-							<td class="thumb column-thumb"><a href="<?php echo get_edit_post_link( $_product->id ); ?>"><?php echo $_product->get_image(); ?></a></td>
-							<td class="product-name"><a href="<?php echo get_edit_post_link( $_product->id ); ?>"><?php echo $_product->get_title(); ?></a></td>
-							<td class="product-price"><?php echo ( $_product->get_price_html() ? $_product->get_price_html() : '<span class="na">&ndash;</span>' ); ?></td>
-							<td class="product-sku"><?php echo ( $_product->get_sku() ? $_product->get_sku() : '<span class="na">&ndash;</span>' ); ?></td>
-							<td class="product-id"><?php echo $_product->id; ?></td>
-							<td class="product-qty"><?php echo ( $_product->managing_stock() ? $_product->get_total_stock() : '<span class="na">&ndash;</span>' ); ?></td>
-							<td class="product-labels"><input type="number" class="product-label-input" value="0" min="0" tabindex="1"></td>
-							<?php echo $this->output_label_data( $_product->get_title(), $this->format_price( $_product->get_price() ), $_product->get_sku(), $_product->id, null ); ?>
-						</tr>
-
-						<?php endif; endforeach; endif; ?>
-
-					</tbody>
-				</table>
-			</div>
-			
-		<?php
-	}
-
-	/**
-	 * Get products post type.
-	 *
-	 * @access public
-	 * @return array
-	 */
-	public function get_products() {
-		global $wpbd;
-
-		$args = array(
-			'post_type'     	=> 'product',
-			'posts_per_page'  => apply_filters( 'woocommerce_product_barcodes_default_posts', 10 ) // only show 10 recent products by default
-		);
-
-		if ( isset( $_REQUEST['id'] ) ) {
-			$args['include'] = $_REQUEST['id'];
-		}
-
-		return get_posts( $args );
 	}
 
 	public function get_print_screen_link( $id ) {
