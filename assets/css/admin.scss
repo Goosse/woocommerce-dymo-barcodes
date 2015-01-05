@@ -3,15 +3,13 @@
 	width: 30%;
 }
 
-.productbarcodes th.product-price,
-.productbarcodes td.product-price {
+.productbarcodes .column-product_price {
 	width: 15%
 }
 
-.productbarcodes .product-price,
-.productbarcodes .product-sku,
-.productbarcodes .product-qty,
-.productbarcodes .product-id {
+.productbarcodes .column-product_price,
+.productbarcodes .column-product_sku,
+.productbarcodes .column-stock_level {
 	text-align: center;
 }
 
@@ -30,7 +28,7 @@
   max-height: 40px;
 }
 
-input.product-label-input {
+.productbarcodes input.product-label-input {
 	width: 100%
 }
 
