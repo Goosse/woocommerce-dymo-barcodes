@@ -39,12 +39,6 @@ class WC_Product_Barcodes extends WC_Integration {
 
 		$this->dymo_printer 	= $this->get_option( 'dymo_printer' );
 		$this->label_size  		= $this->get_option( 'label_size' );
-		$this->show_name  		= $this->get_option( 'show_name' );
-		$this->show_sku  		  = $this->get_option( 'show_sku' );
-		$this->show_price  		= $this->get_option( 'show_price' );
-		$this->show_option  	= $this->get_option( 'show_option' );
-		$this->show_barcode 	= $this->get_option( 'show_barcode' );
-		$this->use_sku  		  = $this->get_option( 'use_sku' );
 
 		// save settings
 		add_action( 'woocommerce_update_options_integration_' . $this->id, array( $this, 'process_admin_options' ) );
@@ -226,54 +220,6 @@ class WC_Product_Barcodes extends WC_Integration {
 	 */
 	public function settings_url() {
 		return add_query_arg( array( 'tab' => 'integration', 'section' => $this->id ), admin_url( 'admin.php?page=wc-settings' ) );
-	}
-	
-	/**
-	 * Format price with shop currency symbol
-	 *
-	 * @access public
-	 * @param int $price (default: null)
-	 * @return void
-	 */
-	public function format_price( $price ) {
-		return get_woocommerce_currency_symbol() . wc_format_decimal( $price, 2 );
-	}
-	
-	/**
-	 * Output hidden input for printing options.
-	 *
-	 * @param string $name
-	 * @param int $price
-	 * @param string $sku
-	 * @param int $id
-	 * @param string $option
-	 * @access public
-	 * @return void
-	 */
-	public function output_label_data( $name, $price, $sku, $id, $option ) {
-		
-		$sku = $sku ? $sku : $id; // fallback to id if were using sku is empty and being used for barcode object
-		
-		if( $this->show_barcode == 'yes' ) {
-  		$barcode = $this->use_sku == 'yes' ? $sku : $id;	
-		} else {
-  		$barcode = '';
-		}
-			
-		$name = $this->show_name == 'yes' ? $name  : '';
-		
-		$metadata = array();
-		
-		$metadata[] = $this->show_price == 'yes' ? $price : '';
-		$metadata[] = $this->show_sku == 'yes' ? $sku : '';	
-		$metadata[] = $this->show_option == 'yes' ? $option : '';
-		
-		$out = "";	
-		$out.= "<input type='hidden' class='product-name' value='".esc_attr( $name )."'>";
-		$out.= "<input type='hidden' class='product-barcode' value='".esc_attr( $barcode )."'>";
-		$out.= "<input type='hidden' class='product-metadata' value='".esc_attr( join( " ", $metadata ) )."'>";
-
-		return $out;
 	}
 
 	/**
