@@ -42,7 +42,7 @@
       <IsMirrored>False</IsMirrored>
       <IsVariable>True</IsVariable>
       <Text>123456</Text>
-      <Type>Code128Auto</Type>
+      <Type>Code39</Type>
       <Size>Medium</Size>
       <TextPosition>Bottom</TextPosition>
       <TextFont Family="Lucida Grande" Size="8" Bold="False" Italic="False" Underline="False" Strikeout="False"/>

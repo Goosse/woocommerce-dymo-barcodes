@@ -42,8 +42,8 @@
       <IsMirrored>False</IsMirrored>
       <IsVariable>True</IsVariable>
       <Text>123456</Text>
-      <Type>Code128Auto</Type>
-      <Size>Medium</Size>
+      <Type>Code39</Type>
+      <Size>Small</Size>
       <TextPosition>Bottom</TextPosition>
       <TextFont Family="Lucida Grande" Size="8" Bold="False" Italic="False" Underline="False" Strikeout="False"/>
       <CheckSumFont Family="Lucida Grande" Size="7.3125" Bold="False" Italic="False" Underline="False" Strikeout="False"/>
