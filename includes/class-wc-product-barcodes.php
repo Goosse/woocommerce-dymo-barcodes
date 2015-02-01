@@ -176,8 +176,8 @@ class WC_Product_Barcodes extends WC_Integration {
 			),
 			'use_sku' 			  => array (
 				'title'    		  => __( 'Barcode Value', 'wc-product-barcodes' ),
-				'label'    		  => __( 'Use product SKU or variant SKU as the barcode value.', 'wc-product-barcodes' ),
-				'description'   => __( 'By default the product ID or variant ID is used.', 'wc-product-barcodes' ),
+				'label'    		  => __( 'Use SKU as the barcode value.', 'wc-product-barcodes' ),
+				'description'   => __( 'By default the ID is used.', 'wc-product-barcodes' ),
 				'type'     		  => 'checkbox',
 				'default'    	  => 'no'
 			)
