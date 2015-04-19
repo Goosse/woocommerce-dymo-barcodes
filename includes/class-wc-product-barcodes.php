@@ -29,9 +29,9 @@ class WC_Product_Barcodes extends WC_Integration {
 	 */
 	public function __construct() {
 
-		$this->id               = 'product_barcodes';
-		$this->method_title        = __( 'Product Barcodes', 'wc-product-barcodes' );
-		$this->method_description  = __( 'Print simple barcode labels with your Dymo LabelWriter printer or export your products into Dymo label software.', 'wc-product-barcodes' );
+		$this->id               	= 'product_barcodes';
+		$this->method_title        	= __( 'Product Barcodes', 'wc-product-barcodes' );
+		$this->method_description  	= __( 'Print simple barcode labels with your Dymo LabelWriter printer or export your products into Dymo label software.', 'wc-product-barcodes' );
 
 		// Load the settings.
 		$this->init_form_fields();
@@ -72,10 +72,10 @@ class WC_Product_Barcodes extends WC_Integration {
 
 			$localize_array = array(
 				'plugin_url'         => plugins_url( null, dirname( __FILE__ ) ),
-				'dymo_printer'        =>  $this->get_option( 'dymo_printer') ? $this->get_option( 'dymo_printer')  : null,
+				'dymo_printer'       =>  $this->get_option( 'dymo_printer') ? $this->get_option( 'dymo_printer')  : null,
 				'label_size'         =>  $this->get_option( 'label_size') ? $this->get_option( 'label_size') : 'medium',
-				'label_loaded_error'  => __( 'Cant print, label is not loaded.', 'wc-product-barcodes' ),
-				'data_loaded_error'   => __( 'Cant print, label data is not loaded.', 'wc-product-barcodes' ),
+				'label_loaded_error' => __( 'Cant print, label is not loaded.', 'wc-product-barcodes' ),
+				'data_loaded_error'  => __( 'Cant print, label data is not loaded.', 'wc-product-barcodes' ),
 			);
 
 			wp_localize_script( 'woocommerce-product-barcode-script', 'wcb_params', $localize_array );
@@ -85,7 +85,6 @@ class WC_Product_Barcodes extends WC_Integration {
 
 			wp_register_style( 'woocommerce-product-barcode', plugins_url( '/assets/css/admin.css', dirname( __FILE__ ) ), null, $this->version );
 			wp_enqueue_style( 'woocommerce-product-barcode' );
-
 		}
 	}
 
@@ -108,102 +107,102 @@ class WC_Product_Barcodes extends WC_Integration {
 	function init_form_fields() {
 
 		$this->form_fields = array (
-			'dymo_printer'   => array (
-				'title'        => __( 'Dymo Printer', 'wc-product-barcodes' ),
+			'dymo_printer'   	=> array (
+				'title'        	=> __( 'Dymo Printer', 'wc-product-barcodes' ),
 				'description'   => __( 'Choose an installed Dymo LabelWriter Printer.', 'wc-product-barcodes' ),
-				'type'         => 'select',
-				'css'        => 'min-width:300px;',
-				'options'     => array (
-					''         => __( 'Choose printer&hellip;', 'wc-product-barcodes' )
+				'type'        	=> 'select',
+				'css'        	=> 'min-width:300px;',
+				'options'     	=> array (
+					''         	=> __( 'Choose printer&hellip;', 'wc-product-barcodes' )
 				),
 				'default'       =>  ''
 			),
-			'label_size'     => array (
-				'title'        => __( 'Label Size', 'wc-product-barcodes' ),
+			'label_size'     	=> array (
+				'title'        	=> __( 'Label Size', 'wc-product-barcodes' ),
 				'description'   => sprintf( __( 'Select a label size above. You can preview the options to be included on your label bellow. %s', 'wc-product-barcodes' ), '<span id="woocommerce-dymo-print-preview"><img src="" id="woocommerce-dymo-print-preview-img"></span>' ),
-				'type'         => 'select',
-				'css'        => 'min-width:300px;',
-				'options'     => array (
-					'medium'      => __( 'Medium - 32mm x 57mm', 'wc-product-barcodes' ),
-					'large'      => __( 'Large - 70mm x 54mm', 'wc-product-barcodes' )
+				'type'         	=> 'select',
+				'css'        	=> 'min-width:300px;',
+				'options'     	=> array (
+					'medium'    => __( 'Medium - 32mm x 57mm', 'wc-product-barcodes' ),
+					'large'     => __( 'Large - 70mm x 54mm', 'wc-product-barcodes' )
 				),
 				'default'       => 'medium',
 			),
-			'show_name'       => array (
-				'title'        => __( 'Label Options', 'wc-product-barcodes' ),
-				'label'        => __( 'Product Name', 'wc-product-barcodes' ),
+			'show_name'       	=> array (
+				'title'        	=> __( 'Label Options', 'wc-product-barcodes' ),
+				'label'        	=> __( 'Product Name', 'wc-product-barcodes' ),
 				'description'   => __( 'Display product name.', 'wc-product-barcodes' ),
-				'type'         => 'checkbox',
+				'type'         	=> 'checkbox',
 				'checkboxgroup' => 'start',
-				'class'        => 'label-preview-option name',
-				'default'      => 'yes',
-				'desc_tip'    => true
+				'class'        	=> 'label-preview-option name',
+				'default'      	=> 'yes',
+				'desc_tip'    	=> true
 			),
-			'show_price'     => array (
-				'label'        => __( 'Price', 'wc-product-barcodes' ),
+			'show_price'    	=> array (
+				'label'        	=> __( 'Price', 'wc-product-barcodes' ),
 				'description'   => __( 'Display product or variant price.', 'wc-product-barcodes' ),
-				'type'         => 'checkbox',
+				'type'         	=> 'checkbox',
 				'checkboxgroup' => '',
-				'class'        => 'label-preview-option metadata',
+				'class'        	=> 'label-preview-option metadata',
 				'default'       => 'yes',
-				'desc_tip'    =>  true
+				'desc_tip'    	=>  true
 			),
-			'show_sku'      => array (
-				'label'        => __( 'SKU', 'wc-product-barcodes' ),
+			'show_sku'      	=> array (
+				'label'        	=> __( 'SKU', 'wc-product-barcodes' ),
 				'description'   => __( 'Display product or variant SKU.', 'wc-product-barcodes' ),
-				'type'         => 'checkbox',
+				'type'         	=> 'checkbox',
 				'checkboxgroup' => '',
-				'class'        => 'label-preview-option metadata',
+				'class'        	=> 'label-preview-option metadata',
 				'default'       => 'yes',
-				'desc_tip'    =>  true
+				'desc_tip'    	=>  true
 			),
-			'show_option'   => array (
-				'label'        => __( 'Variant Option', 'wc-product-barcodes' ),
+			'show_option'   	=> array (
+				'label'        	=> __( 'Variant Option', 'wc-product-barcodes' ),
 				'description'   => __( 'Display variant option.', 'wc-product-barcodes' ),
-				'type'         => 'checkbox',
-				'class'        => 'label-preview-option metadata',
+				'type'         	=> 'checkbox',
+				'class'        	=> 'label-preview-option metadata',
 				'default'       => 'yes',
-				'desc_tip'    => true
+				'desc_tip'    	=> true
 			),
-			'show_barcode'   => array (
-				'label'        => __( 'Barcode', 'wc-product-barcodes' ),
-				'description'     => __( 'Display barcode.', 'wc-product-barcodes' ),
-				'type'         => 'checkbox',
-				'checkboxgroup'   => 'end',
-				'class'        => 'label-preview-option barcode',
+			'show_barcode'   	=> array (
+				'label'        	=> __( 'Barcode', 'wc-product-barcodes' ),
+				'description'   => __( 'Display barcode.', 'wc-product-barcodes' ),
+				'type'        	=> 'checkbox',
+				'checkboxgroup' => 'end',
+				'class'       	=> 'label-preview-option barcode',
 				'default'       => 'yes',
-				'desc_tip'    => true
+				'desc_tip'    	=> true
 			),
-			'use_sku'      => array (
-				'title'        => __( 'Barcode Value', 'wc-product-barcodes' ),
-				'label'        => __( 'Use SKU as the barcode value.', 'wc-product-barcodes' ),
-				'description'     => __( 'By default the ID is used.', 'wc-product-barcodes' ),
-				'type'         => 'checkbox',
+			'use_sku'      		=> array (
+				'title'        	=> __( 'Barcode Value', 'wc-product-barcodes' ),
+				'label'        	=> __( 'Use SKU as the barcode value.', 'wc-product-barcodes' ),
+				'description'   => __( 'By default the ID is used.', 'wc-product-barcodes' ),
+				'type'         	=> 'checkbox',
 				'default'       => 'no'
 			)
 		);
 
-		// select dynamic printer list after save
+		// Select dynamic printer from list after save
 		$selected_printer = '';
 
 		if ( isset( $_POST[$this->plugin_id . $this->id . '_dymo_printer'] ) ) {
 			$selected_printer = $_POST[$this->plugin_id . $this->id . '_dymo_printer'];
 		} elseif ( $this->get_option( 'dymo_printer') ) {
-			$selected_printer = $this->get_option( 'dymo_printer');
+			$selected_printer = $this->get_option( 'dymo_printer' );
 		}
 
 		if( is_admin() ) {
 			wc_enqueue_js("
-		    $(window).on('load', function() {
-          $(\"#woocommerce_product_barcodes_dymo_printer option[value='". $selected_printer ."']\").prop('selected', true);
-        });
-      ");
+		    	$( window ).on( 'load', function() {
+          			$( \"#woocommerce_product_barcodes_dymo_printer option[value='". $selected_printer ."']\" ).prop( 'selected', true );
+        		} );
+      		");
 		}
 
 	}
 
 	/**
-	 * Add submenu page to products menu.
+	 * Add sub menu page to products menu.
 	 *
 	 * @access public
 	 * @return void
@@ -238,7 +237,7 @@ class WC_Product_Barcodes extends WC_Integration {
 	}
 
 	/**
-	 * Display submenu page.
+	 * Display sub menu page.
 	 *
 	 * @access public
 	 * @return string
@@ -259,12 +258,12 @@ class WC_Product_Barcodes extends WC_Integration {
 			</div>
     <?php
 
-		if ( ! class_exists( 'WC_Product_Barcodes_Table' ) )
+		if ( ! class_exists( 'WC_Product_Barcodes_Table' ) ) {
 			return;
+		}
 
 		$report = new WC_Product_Barcodes_Table();
 		$report->output_report();
-
 	}
 
 	public function get_print_screen_link( $id ) {
@@ -287,7 +286,6 @@ class WC_Product_Barcodes extends WC_Integration {
 			foreach ( $product->get_variation_attributes() as $attribute_name => $attribute ) {
 				$attributes[] = ucwords( str_replace( '-', ' ', $attribute ) );
 			}
-
 		}
 
 		return $attributes;
@@ -302,15 +300,14 @@ class WC_Product_Barcodes extends WC_Integration {
 	 */
 	public function product_data_field() {
 		global $post;
-?>
-    <div class="options_group hide_if_downloadable hide_if_virtual">
-		  <p class="form-field wcb_general_print_btn">
+		?><div class="options_group hide_if_downloadable hide_if_virtual">
+		  	<p class="form-field wcb_general_print_btn">
 			  <label for="wcb_general_print_btn"><?php _e( 'Barcodes', 'wc-product-barcodes' ); ?></label>
 				<a href="<?php echo esc_url( $this->get_print_screen_link( $post->ID ) ); ?>" class="button"><?php _e( 'Print barcodes', 'wc-product-barcodes' ); ?></a>
-        <img class="help_tip" data-tip="<?php esc_attr_e( 'Print barcode labels for this product.', 'wc-product-barcodes' ); ?>" src="<?php echo esc_url( WC()->plugin_url() ); ?>/assets/images/help.png" height="16" width="16" /></p>
-    </div>
-
-<?php }
+        		<img class="help_tip" data-tip="<?php esc_attr_e( 'Print barcode labels for this product.', 'wc-product-barcodes' ); ?>" src="<?php echo esc_url( WC()->plugin_url() ); ?>/assets/images/help.png" height="16" width="16" />
+        	</p>
+    	</div><?php 
+	}
 
 	/**
 	 * Add extra bulk action options to export orders
