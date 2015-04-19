@@ -5,7 +5,7 @@
  *
  * @class   WC_Product_Barcodes_Table
  * @extends  WP_List_Table
- * @since   1.0.1
+ * @since   1.0.2
  * @category  Class
  * @author  Jack Gregory
  */

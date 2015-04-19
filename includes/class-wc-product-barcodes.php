@@ -7,7 +7,7 @@
  *
  * @class   WC_Product_Barcodes
  * @extends  WC_Integration
- * @since   1.0.1
+ * @since   1.0.2
  * @category  Class
  * @author  Jack Gregory
  */
@@ -19,7 +19,7 @@ class WC_Product_Barcodes extends WC_Integration {
 	 *
 	 * @var string
 	 */
-	protected $version = '1.0.1';
+	protected $version = '1.0.2';
 
 	/**
 	 * Init and hook in the integration.
