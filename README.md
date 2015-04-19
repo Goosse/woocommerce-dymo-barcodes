@@ -1,4 +1,4 @@
-## Woocommerce Product Barcodes ## 
+## Woocommerce Product Barcodes
 
 Allows printing of product barcode labels using a DYMO LabelWriter printer.
 
