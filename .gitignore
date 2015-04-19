@@ -5,3 +5,7 @@ config.codekit
 assets/css/.sass-cache/
 
 *.scssc
+
+*.sublime-project
+
+*.sublime-workspace
