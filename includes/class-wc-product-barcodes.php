@@ -193,11 +193,10 @@ class WC_Product_Barcodes extends WC_Integration {
 		if( is_admin() ) {
 			wc_enqueue_js("
 		    	$( window ).on( 'load', function() {
-          			$( \"#woocommerce_product_barcodes_dymo_printer option[value='". $selected_printer ."']\" ).prop( 'selected', true );
+          			$( \"#woocommerce_product_barcodes_dymo_printer option[value='". esc_attr( $selected_printer ) ."']\" ).prop( 'selected', true );
         		} );
       		");
 		}
-
 	}
 
 	/**
@@ -324,8 +323,8 @@ class WC_Product_Barcodes extends WC_Integration {
 
 		if ( 'product' == $post_type ) {
 			wc_enqueue_js("
-				$('<option>').val('export_barcodes').text('" . __( 'Export Labels', 'wc-product-barcodes' ) . "').appendTo(\"select[name='action']\");
-				$('<option>').val('export_barcodes').text('" . __( 'Export Labels', 'wc-product-barcodes' ) . "').appendTo(\"select[name='action2']\");
+				$( '<option>' ).val( 'export_barcodes' ).text( '" . __( 'Export Labels', 'wc-product-barcodes' ) . "' ).appendTo( \"select[name='action']\" );
+				$( '<option>' ).val( 'export_barcodes' ).text( '" . __( 'Export Labels', 'wc-product-barcodes' ) . "' ).appendTo( \"select[name='action2']\" );
 			");
 		}
 	}
@@ -392,6 +391,7 @@ class WC_Product_Barcodes extends WC_Integration {
 				}
 
 			}
+
 			exit();
 		}
 	}
