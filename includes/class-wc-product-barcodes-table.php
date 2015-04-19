@@ -1,5 +1,15 @@
 <?php
 
+/**
+ * Product Barcodes Integration
+ *
+ * @class   WC_Product_Barcodes_Table
+ * @extends  WP_List_Table
+ * @since   1.0.1
+ * @category  Class
+ * @author  Jack Gregory
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly
 }
