@@ -281,7 +281,6 @@ class WC_Product_Barcodes extends WC_Integration {
 	 * @return array
 	 */
 	private function get_attributes( $product ) {
-
 		$attributes = array();
 
 		if ( $product->is_type( 'variation' ) ) {
@@ -357,7 +356,7 @@ class WC_Product_Barcodes extends WC_Integration {
 			$post_ids = array_map( 'absint', (array) $_REQUEST['post'] );
 			$csv      = fopen( 'php://output', 'w' );
 
-			$headers = __( 'product_name, price, sku, id, variant_option', 'wc-product-barcodes' ) ."\n";
+			$headers = apply_filters( 'woocommerce_product_barcodes_csv_headers', __( 'product_name, price, sku, id, variant_option', 'wc-product-barcodes' ) ) ."\n";
 
 			fwrite( $csv, $headers );
 
