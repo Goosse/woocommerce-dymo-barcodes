@@ -208,7 +208,7 @@ class WC_Product_Barcodes extends WC_Integration {
 	 * @return void
 	 */
 	public function register_submenu_page() {
-		add_submenu_page( 'edit.php?post_type=product', 'Product Barcodes', 'Barcodes', 'manage_woocommerce', $this->id, array( $this, 'submenu_page_callback' ) );
+		add_submenu_page( 'edit.php?post_type=product', __( 'Product Barcodes', 'wc-product-barcodes' ), 'Barcodes', 'manage_woocommerce', $this->id, array( $this, 'submenu_page_callback' ) );
 	}
 
 	/**
