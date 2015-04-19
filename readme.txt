@@ -4,18 +4,22 @@ Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=info@pla
 Tags: woocommerce, dymo, barcodes
 Requires at least: 3.9.1
 Tested up to: 3.9.1
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Allows printing of WooCommerce product labels using a DYMO LabelWriter printer.
 
-== Description ==
+== Features ==
 
-Allows printing of WooCommerce product labels using a DYMO LabelWriter printer.
+- Print barcode labels from the WordPress admin.
+- Select from medium and large labels in the settings.
+- Configure what data prints on each label in the settings.
+- Export labels in .csv format to import into Dymo software for bulk printing.
 
-== Installation ==
+== Usage  ==
 
-1. Download the plugin file to your computer and unzip it
-2. Using an FTP program, or your hosting control panel, upload the unzipped plugin folder to your WordPress installation's wp-content/plugins/ directory.
-3. Activate the plugin from the Plugins menu within the WordPress admin.
+1. Install Dymo LabelWriter printer software.
+2. Connect Dymo LabelWriter 450 barcode printer.
+3. Allow Plugins in your Browser.
+4. Go to WooCommerce > Settings > Integration > Barcodes and choose Dymo printer from list, choose label size and design simple barcode label.
