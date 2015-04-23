@@ -4,7 +4,7 @@
  Plugin Name: WooCommerce Dymo Barcodes
  Description: Print WooCommerce Product barcode labels using Dymo Label Printers.
  Author: Jack Gregory
- Version: 1.0.1
+ Version: 1.0.2
  Author URI: http://media.platformplatform.com
  */
 
