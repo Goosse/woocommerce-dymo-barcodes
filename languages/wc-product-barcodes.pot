@@ -1,60 +1,60 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Woocommerce Product Barcodes\n"
-"POT-Creation-Date: 2015-04-19 19:32-0000\n"
-"PO-Revision-Date: 2015-04-19 19:33-0000\n"
+"POT-Creation-Date: 2015-04-23 18:00-0000\n"
+"PO-Revision-Date: 2015-04-23 18:00-0000\n"
 "Last-Translator: Jack Gregory <jack@platformplatform.com>\n"
 "Language-Team: \n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7.5\n"
+"X-Generator: Poedit 1.7.6\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;esc_attr_e\n"
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../includes/class-wc-product-barcodes-table.php:28
+#: ../includes/class-wc-product-barcodes-table.php:38
 msgid "Product Barcode"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes-table.php:29
+#: ../includes/class-wc-product-barcodes-table.php:39
 #: ../includes/class-wc-product-barcodes.php:33
 #: ../includes/class-wc-product-barcodes.php:209
-#: ../includes/class-wc-product-barcodes.php:247
 msgid "Product Barcodes"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes-table.php:38
+#: ../includes/class-wc-product-barcodes-table.php:48
 msgid "No products found."
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes-table.php:146
+#: ../includes/class-wc-product-barcodes-table.php:156
 msgid "Image"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes-table.php:147
+#: ../includes/class-wc-product-barcodes-table.php:157
 msgid "Product"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes-table.php:148
+#: ../includes/class-wc-product-barcodes-table.php:158
 #: ../includes/class-wc-product-barcodes.php:141
 msgid "Price"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes-table.php:149
+#: ../includes/class-wc-product-barcodes-table.php:159
 #: ../includes/class-wc-product-barcodes.php:150
 msgid "SKU"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes-table.php:150
+#: ../includes/class-wc-product-barcodes-table.php:160
 msgid "Quantity"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes-table.php:151
-#: ../includes/class-wc-product-barcodes.php:308
+#: ../includes/class-wc-product-barcodes-table.php:161
+#: ../includes/class-wc-product-barcodes.php:209
+#: ../includes/class-wc-product-barcodes.php:307
 msgid "Barcodes"
 msgstr ""
 
@@ -160,6 +160,10 @@ msgstr ""
 msgid "View settings"
 msgstr ""
 
+#: ../includes/class-wc-product-barcodes.php:247
+msgid "Print Product Barcodes"
+msgstr ""
+
 #: ../includes/class-wc-product-barcodes.php:250
 msgid "View Settings"
 msgstr ""
@@ -172,19 +176,19 @@ msgstr ""
 msgid "Print <span class=\"print_no\"></span> barcodes"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:309
+#: ../includes/class-wc-product-barcodes.php:308
 msgid "Print barcodes"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:310
+#: ../includes/class-wc-product-barcodes.php:309
 msgid "Print barcode labels for this product."
 msgstr ""
 
+#: ../includes/class-wc-product-barcodes.php:325
 #: ../includes/class-wc-product-barcodes.php:326
-#: ../includes/class-wc-product-barcodes.php:327
 msgid "Export Labels"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:360
+#: ../includes/class-wc-product-barcodes.php:359
 msgid "product_name, price, sku, id, variant_option"
 msgstr ""

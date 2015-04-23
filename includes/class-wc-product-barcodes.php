@@ -206,7 +206,7 @@ class WC_Product_Barcodes extends WC_Integration {
 	 * @return void
 	 */
 	public function register_submenu_page() {
-		add_submenu_page( 'edit.php?post_type=product', __( 'Product Barcodes', 'wc-product-barcodes' ), 'Barcodes', 'manage_woocommerce', $this->id, array( $this, 'submenu_page_callback' ) );
+		add_submenu_page( 'edit.php?post_type=product', __( 'Product Barcodes', 'wc-product-barcodes' ), __( 'Barcodes', 'wc-product-barcodes' ), 'manage_woocommerce', $this->id, array( $this, 'submenu_page_callback' ) );
 	}
 
 	/**
@@ -244,7 +244,7 @@ class WC_Product_Barcodes extends WC_Integration {
 		include_once( 'class-wc-product-barcodes-table.php' );
 
 		?><div class="wrap">
-			<h2><?php _e( 'Product Barcodes', 'wc-product-barcodes' ); ?></h2>
+			<h2><?php _e( 'Print Product Barcodes', 'wc-product-barcodes' ); ?></h2>
 			<div class="tablenav top">
 				<div class="actions alignleft">
 					<p><a href="<?php echo esc_url( $this->settings_url() ); ?>" class="button" title="<?php echo esc_attr_e( 'View Settings', 'wc-product-barcodes' ); ?>"><?php _e( 'Settings', 'wc-product-barcodes' ); ?></a></p>
