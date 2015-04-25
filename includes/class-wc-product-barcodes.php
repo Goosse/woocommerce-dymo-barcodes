@@ -64,7 +64,6 @@ class WC_Product_Barcodes extends WC_Integration {
 	 */
 
 	public function load_admin_styles( $hook ) {
-
 		if ( $hook == 'product_page_product_barcodes' ||  $hook == 'woocommerce_page_wc-settings' ) {
 			wp_register_script( 'woocommerce-product-barcode-dymo', plugins_url( '/assets/js/DYMO.Label.Framework.1.2.6.js', dirname( __FILE__ ) ), null, $this->version  );
 			wp_register_script( 'woocommerce-product-barcode-script', plugins_url( '/assets/js/script.min.js', dirname( __FILE__ ) ), null, $this->version );
@@ -80,10 +79,10 @@ class WC_Product_Barcodes extends WC_Integration {
 			wp_localize_script( 'woocommerce-product-barcode-script', 'wcb_params', $localize_array );
 
 			wp_enqueue_script( 'woocommerce-product-barcode-dymo' );
-			wp_enqueue_script( 'woocommerce-product-barcode-script' );
+			wp_enqueue_script( 'woocommerce-product-barcode-script' );	
 
-			wp_register_style( 'woocommerce-product-barcode', plugins_url( '/assets/css/admin.css', dirname( __FILE__ ) ), null, $this->version );
-			wp_enqueue_style( 'woocommerce-product-barcode' );
+			wp_enqueue_style( 'woocommerce_admin_styles', WC()->plugin_url() . '/assets/css/admin.css', array(), $this->version );
+			wp_enqueue_style( 'woocommerce-product-barcode', plugins_url( '/assets/css/admin.css', dirname( __FILE__ ) ), array(), $this->version );
 		}
 	}
 
