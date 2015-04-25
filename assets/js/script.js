@@ -2,11 +2,17 @@
     var label, labelSet, labelSize,
         stock = 1;
 
+    /**
+     * init
+     */
     function init() {
         loadLabel();
         loadPrinters();
     }
 
+    /**
+     * load dymo label data
+     */
     function loadLabel() {
         var labelSize = wcb_params.label_size,
             $printerList = $( '#woocommerce_product_barcodes_label_size' );
@@ -18,9 +24,18 @@
         getLabel( labelSize );
     }
 
+    /**
+     * get list of installed dymo label printers
+     * @return string
+     */
     function loadPrinters() {
-        var $printerList = $( "#woocommerce_product_barcodes_dymo_printer" ),
+        var $printerList = $( '#woocommerce_product_barcodes_dymo_printer' ),
             printers = dymo.label.framework.getLabelWriterPrinters();
+
+        if ( typeof printers === 'undefined' ) {
+            alert( wcb_params.no_prints_error );
+            return;
+        }
 
         for ( var i = 0; i < printers.length; ++i ) {
             var printer = printers[ i ],
@@ -31,20 +46,30 @@
         }
     }
 
+    /**
+     * get label data
+     * @param  {string} size
+     */
     function getLabel( size ) {
-        $.get( wcb_params.plugin_url + "/assets/labels/" + size + ".label", function( labelXml ) {
+        $.get( wcb_params.plugin_url + '/assets/labels/' + size + '.label', function( labelXml ) {
             label = dymo.label.framework.openLabelXml( labelXml );
             renderLabel();
             printPreview();
         }, "text" );
     }
 
+    /**
+     * print label
+     * @param  {object} data
+     * @param  {object} event
+     * @return {void}
+     */
     function printLabel( data, event ) {
         try {
-            if ( !label ) {
+            if ( ! label ) {
                 throw wcb_params.label_loaded_error;
             }
-            if ( !labelSet ) {
+            if ( ! labelSet ) {
                 throw wcb_params.data_loaded_error;
             }
             label.print( wcb_params.dymo_printer, null, data );
@@ -65,9 +90,9 @@
 
             for ( var i = 0; i < stock; i++ ) {
                 var record = labelSet.addRecord();
-                record.setText( "product_name", name );
-                record.setText( "metadata", $.trim( metadata ) );
-                record.setText( "product_barcode", barcode );
+                record.setText( 'product_name', name );
+                record.setText( 'metadata', $.trim( metadata ) );
+                record.setText( 'product_barcode', barcode );
             }
         } );
 

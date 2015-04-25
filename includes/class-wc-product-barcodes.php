@@ -74,6 +74,7 @@ class WC_Product_Barcodes extends WC_Integration {
 				'label_size'         =>  $this->get_option( 'label_size') ? $this->get_option( 'label_size' ) : 'medium',
 				'label_loaded_error' => __( 'Cant print, label is not loaded.', 'wc-product-barcodes' ),
 				'data_loaded_error'  => __( 'Cant print, label data is not loaded.', 'wc-product-barcodes' ),
+				'no_prints_error'  => 	__( 'No Dymo printers installed.', 'wc-product-barcodes' ),
 			);
 
 			wp_localize_script( 'woocommerce-product-barcode-script', 'wcb_params', $localize_array );
