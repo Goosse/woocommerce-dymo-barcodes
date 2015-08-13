@@ -51,8 +51,8 @@ class WC_Product_Barcodes extends WC_Integration {
 		add_action( 'woocommerce_product_options_general_product_data', array( $this, 'product_data_field' ) );
 		add_action( 'admin_menu', array( $this, 'register_submenu_page' ) );
 		add_action( 'admin_notices', array( $this, 'error_admin_notice' ) );
-		add_action( 'load-edit.php', array( $this, 'do_bulk_action' ) );
-		add_filter( 'admin_footer', array( $this, 'add_bulk_action' ) );
+		add_action( 'load-edit.php', array( $this, 'do_bulk_export_action' ) );
+		add_filter( 'admin_footer', array( $this, 'add_bulk_actions' ) );
 	}
 
 	/**
@@ -270,7 +270,7 @@ class WC_Product_Barcodes extends WC_Integration {
 	 * @return string
 	 */
 	public function get_print_screen_link( $id ) {
-		return add_query_arg( array( 'page' => $this->id, 'id' => $id ), admin_url( 'edit.php?post_type=product' ) );
+		return add_query_arg( array( 'page' => $this->id, 'ids' => $id ), admin_url( 'edit.php?post_type=product' ) );
 	}
 
 	/**
@@ -317,13 +317,34 @@ class WC_Product_Barcodes extends WC_Integration {
 	 * @access public
 	 * @return void
 	 */
-	public function add_bulk_action() {
+	public function add_bulk_actions() {
 		global $post_type;
 
 		if ( 'product' == $post_type ) {
 			wc_enqueue_js("
 				$( '<option>' ).val( 'export_barcodes' ).text( '" . __( 'Export Labels', 'wc-product-barcodes' ) . "' ).appendTo( \"select[name='action']\" );
 				$( '<option>' ).val( 'export_barcodes' ).text( '" . __( 'Export Labels', 'wc-product-barcodes' ) . "' ).appendTo( \"select[name='action2']\" );
+				$( '<option>' ).val( 'print_barcodes' ).text( '" . __( 'Print Labels', 'wc-product-barcodes' ) . "' ).appendTo( \"select[name='action']\" );
+				$( '<option>' ).val( 'print_barcodes' ).text( '" . __( 'Print Labels', 'wc-product-barcodes' ) . "' ).appendTo( \"select[name='action2']\" );
+
+				$( '#doaction, #doaction2' ).click( function ( event ) {
+
+    				var actionselected = $( this ).attr( 'id' ).substr( 2 );
+
+    				if ( $('select[name=\"' + actionselected + '\"]').val() == 'print_barcodes') {
+        				event.preventDefault();
+        				var checked = [];
+
+        				$( 'tbody th.check-column input[type=\"checkbox\"]:checked' ).each( function() {
+			                checked.push( $(this).val() );
+			            } );
+
+        				var product_ids = checked.join( ',' );
+        				url = 'edit.php?post_type=product&page=product_barcodes&ids='+product_ids;
+
+        				window.location = url;
+    				}
+				} );
 			");
 		}
 	}
