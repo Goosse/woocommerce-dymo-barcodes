@@ -355,7 +355,7 @@ class WC_Product_Barcodes extends WC_Integration {
 	 * @access public
 	 * @return void
 	 */
-	function do_bulk_action() {
+	function do_bulk_export_action() {
 		global $typenow;
 		$post_type = $typenow;
 
