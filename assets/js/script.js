@@ -131,6 +131,7 @@
         getLabel( labelSize );
     } );
 
+    // update label preview
     $( document ).on( 'change', '.label-preview-option', function() {
         renderLabel();
         printPreview();
