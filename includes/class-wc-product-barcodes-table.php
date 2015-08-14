@@ -76,7 +76,7 @@ class WC_Product_Barcodes_Table extends WP_List_Table {
 
 		switch ( $column_name ) {
 		case 'product_image' :
-			echo '<a href="' . get_edit_post_link( $action_id ) . '">' . $product->get_image() . '</a>';
+			echo '<strong><a href="' . get_edit_post_link( $action_id ) . '">' . $product->get_image() . '</a></strong>';
 			break;
 
 		case 'product' :
