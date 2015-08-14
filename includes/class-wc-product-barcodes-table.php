@@ -82,15 +82,18 @@ class WC_Product_Barcodes_Table extends WP_List_Table {
 		case 'product' :
 			// Get variation data
 			if ( $product->is_type( 'variation' ) ) {
-				$list_attributes = array();
-				$attributes = $product->get_variation_attributes();
+				
+				$i = 0;
+				$attributes = '';
 
-				foreach ( $attributes as $name => $attribute ) {
-					$list_attributes[] = ucwords( str_replace( '-', ' ', $attribute ) );
+				foreach ( $product->get_variation_attributes() as $attribute_name => $attribute ) {
+					$attributes .= wc_attribute_label( str_replace( 'attribute_', '', $attribute_name ) ) . ': ' . ucwords( str_replace( '-', ' ', $attribute ) ) . '<br>';
+
+					$i++;
 				}
 
 				echo '<a href="' . get_edit_post_link( $action_id ) . '">' . $product->parent->get_title() . '</a>';
-				echo '<br>' . implode( ' / ', $list_attributes );
+				echo '<br>' . $attributes;
 			} else {
 				echo '<a href="' . get_edit_post_link( $action_id ) . '">' . $product->get_title() . '</a>';
 			}
@@ -136,14 +139,14 @@ class WC_Product_Barcodes_Table extends WP_List_Table {
 
 			// Get variation data
 			if ( $product->is_type( 'variation' ) ) {
-				$list_attributes = array();
-				$attributes = $product->get_variation_attributes();
 
-				foreach ( $attributes as $name => $attribute ) {
-					$list_attributes[] = ucwords( str_replace( '-', ' ', $attribute ) );
+				$attributes = array();
+
+				foreach ( $product->get_variation_attributes() as $attribute_name => $attribute ) {
+					$attributes[] = ucwords( str_replace( '-', ' ', $attribute ) );
 				}
 
-				$metadata[] = $options['show_option'] == 'yes' ? join( ' / ', $list_attributes ) : '';
+				$metadata[] = $options['show_option'] == 'yes' ? join( ' / ', $attributes ) : '';
 			}
 
 			echo "<input type='hidden' class='product-metadata' value='" . esc_attr( join( ' ', $metadata ) ) . "'>";
