@@ -112,11 +112,7 @@ class WC_Product_Barcodes_Table extends WP_List_Table {
 
 		case 'stock_level' :
 
-			if( $product->get_stock_quantity() ) {
-				echo $product->get_stock_quantity();
-			} else {
-				echo __( 'NA', 'wc-product-barcodes' );
-			}
+			echo (int) $product->get_stock_quantity();
 
 			break;
 
