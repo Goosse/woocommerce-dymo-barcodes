@@ -3,11 +3,11 @@
 /**
  * Product Barcodes Integration
  *
- * @class   WC_Product_Barcodes_Table
- * @extends  WP_List_Table
- * @since   1.0.2
- * @category  Class
- * @author  Jack Gregory
+ * @class   	WC_Product_Barcodes_Table
+ * @extends  	WP_List_Table
+ * @since   	1.0.3
+ * @category  	Class
+ * @author  	Jack Gregory
  */
 
 if ( ! defined( 'ABSPATH' ) ) {

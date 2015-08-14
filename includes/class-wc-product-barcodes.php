@@ -5,11 +5,11 @@
  *
  * Allows printing of labels using a DYMO LabelWriter printer.
  *
- * @class   WC_Product_Barcodes
- * @extends  WC_Integration
- * @since   1.0.2
- * @category  Class
- * @author  Jack Gregory
+ * @class   	WC_Product_Barcodes
+ * @extends  	WC_Integration
+ * @since   	1.0.3
+ * @category  	Class
+ * @author  	Jack Gregory
  */
 
 class WC_Product_Barcodes extends WC_Integration {
