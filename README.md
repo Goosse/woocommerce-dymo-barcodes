@@ -19,9 +19,14 @@ chrome://flags/#enable-npapi
 1. Install Dymo LabelWriter printer software.
 2. Connect Dymo LabelWriter 450 barcode printer.
 3. Allow Plugins in your Browser.
-4. Go to WooCommerce > Settings > Integration > Barcodes and choose Dymo printer from list, choose label size and design simple barcode label.
+4. Go to WooCommerce > Settings > Integration > Barcodes and choose Dymo printer from list, choose label size and design a simple barcode label.
 
 ### Changelog
+
+#### 1.0.3
+* Fix issue with how products and variations were displayed
+* Add option to bulk print labels from products table
+* Fix an issue where prices weren't printing
 
 #### 1.0.2
 * Refactor product barcode wp table.
