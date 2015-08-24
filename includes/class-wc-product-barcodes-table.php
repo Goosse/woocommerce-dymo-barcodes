@@ -83,17 +83,14 @@ class WC_Product_Barcodes_Table extends WP_List_Table {
 			// Get variation data
 			if ( $product->is_type( 'variation' ) ) {
 				
-				$i = 0;
-				$attributes = '';
+				$list_attributes = array();
 
-				foreach ( $product->get_variation_attributes() as $attribute_name => $attribute ) {
-					$attributes .= wc_attribute_label( str_replace( 'attribute_', '', $attribute_name ) ) . ': ' . ucwords( str_replace( '-', ' ', $attribute ) ) . '<br>';
-
-					$i++;
+				foreach ( $product->get_variation_attributes() as $name => $attribute ) {
+					$list_attributes[] .= wc_attribute_label( str_replace( 'attribute_', '', $name ) ) . ': <strong>' . $attribute . '</strong>';
 				}
 
 				echo '<a href="' . get_edit_post_link( $action_id ) . '">' . $product->parent->get_title() . '</a>';
-				echo '<br>' . $attributes;
+				echo '<div class="description">' . implode( ', ', $list_attributes ) . '</div>';
 			} else {
 				echo '<a href="' . get_edit_post_link( $action_id ) . '">' . $product->get_title() . '</a>';
 			}
