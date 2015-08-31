@@ -19,7 +19,7 @@ class WC_Product_Barcodes extends WC_Integration {
 	 *
 	 * @var string
 	 */
-	protected $version = '1.0.2';
+	protected $version = '1.0.3';
 
 	/**
 	 * Init and hook in the integration.
@@ -59,7 +59,7 @@ class WC_Product_Barcodes extends WC_Integration {
 	 * Load javascript, css files and localise parameters
 	 *
 	 * @access public
-	 * @param mixed $hook
+	 * @param string $hook
 	 * @return void
 	 */
 
@@ -318,9 +318,9 @@ class WC_Product_Barcodes extends WC_Integration {
 	 * @return void
 	 */
 	public function add_bulk_actions() {
-		global $post_type;
+		global $post_type, $pagenow;
 
-		if ( 'product' == $post_type ) {
+		if ( 'product' == $post_type && 'edit.php' == $pagenow ) {
 			wc_enqueue_js("
 				$( '<option>' ).val( 'export_barcodes' ).text( '" . __( 'Export Labels', 'wc-product-barcodes' ) . "' ).appendTo( \"select[name='action']\" );
 				$( '<option>' ).val( 'export_barcodes' ).text( '" . __( 'Export Labels', 'wc-product-barcodes' ) . "' ).appendTo( \"select[name='action2']\" );
@@ -340,7 +340,7 @@ class WC_Product_Barcodes extends WC_Integration {
 			            } );
 
         				var product_ids = checked.join( ',' );
-        				url = 'edit.php?post_type=product&page=product_barcodes&ids='+product_ids;
+        				url = 'edit.php?post_type=product&page=product_barcodes&ids=' + product_ids;
 
         				window.location = url;
     				}
@@ -409,7 +409,6 @@ class WC_Product_Barcodes extends WC_Integration {
 
 					fputcsv( $csv, $fields );
 				}
-
 			}
 
 			exit();
