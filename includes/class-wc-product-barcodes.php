@@ -195,7 +195,7 @@ class WC_Product_Barcodes extends WC_Integration {
 		if( is_admin() ) {
 			wc_enqueue_js("
 		    	$( window ).on( 'load', function() {
-          			$( \"#woocommerce_product_barcodes_dymo_printer option[value='". esc_attr( $selected_printer ) ."']\" ).prop( 'selected', true );
+          			$( \"#woocommerce_product_barcodes_dymo_printer\" ).find( \"option[value='". esc_attr( $selected_printer ) ."']\" ).prop( 'selected', true );
         		} );
       		");
 		}
