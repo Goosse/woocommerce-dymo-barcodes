@@ -60,7 +60,9 @@ jQuery( function( $ ) {
         for ( var i = 0; i < printers.length; ++i ) {
             var printer = printers[ i ];
 
-            $( '<option>' ).val( printer.modelName ).text( printer.name ).appendTo( '#woocommerce_product_barcodes_dymo_printer' );
+            $( '<option>' ).val( printer.name ).text( printer.name ).appendTo( '#woocommerce_product_barcodes_dymo_printer' );
+            // when appended choose first option
+            $('#woocommerce_product_barcodes_dymo_printer' ).find( 'option' ).eq( i + 1 ).prop( 'selected', true );
         }
     }
 
@@ -87,11 +89,15 @@ jQuery( function( $ ) {
     function dymoPrintLabel( data ) {
         var printers = dymo.label.framework.getLabelWriterPrinters();
         var checkEnvironment = dymo.label.framework.checkEnvironment();
+        var printer = $( '#woocommerce_product_barcodes_dymo_printer' ).val();
         try {
             if ( !checkEnvironment.isFrameworkInstalled || !checkEnvironment.isBrowserSupported ) {
                 throw checkEnvironment.errorDetails;
             }
             if ( printers.length === 0 ) {
+                throw wcb_params.i18n_no_printers_error;
+            }
+            if( printer === '' ) {
                 throw wcb_params.i18n_no_printers_error;
             }
             if ( !label ) {
@@ -101,7 +107,7 @@ jQuery( function( $ ) {
                 throw wcb_params.i18n_data_loaded_error;
             }
             // print label
-            label.print( wcb_params.dymo_printer, null, data );
+            label.print( $( '#woocommerce_product_barcodes_dymo_printer' ).val(), null, data );
         } catch ( e ) {
             alert( e.message || e );
         }

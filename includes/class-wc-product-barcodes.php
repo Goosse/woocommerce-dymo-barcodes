@@ -7,7 +7,7 @@
  *
  * @class   	WC_Product_Barcodes
  * @extends  	WC_Integration
- * @since   	1.0.4
+ * @since   	1.0.4.1
  * @category  	Class
  * @author  	Jack Gregory
  */
@@ -19,7 +19,7 @@ class WC_Product_Barcodes extends WC_Integration {
 	 *
 	 * @var string
 	 */
-	protected $version = '1.0.4';
+	protected $version = '1.0.4.1';
 
 	/**
 	 * Init and hook in the integration.
@@ -38,7 +38,6 @@ class WC_Product_Barcodes extends WC_Integration {
 		$this->init_form_fields();
 		$this->init_settings();
 
-		$this->dymo_printer  = $this->get_option( 'dymo_printer' );
 		$this->label_size    = $this->get_option( 'label_size' );
 
 		// save settings
@@ -76,6 +75,7 @@ class WC_Product_Barcodes extends WC_Integration {
 				'i18n_label_loaded_error' 	=> __( 'Cant print barcode! Label is not loaded.', 'wc-product-barcodes' ),
 				'i18n_data_loaded_error'  	=> __( 'Cant print barcode! Label data is not loaded.', 'wc-product-barcodes' ),
 				'i18n_no_printers_error'  	=> __( 'No Dymo printers found or installed.', 'wc-product-barcodes' ),
+				'i18n_select_printer'  		=> __( 'Select a Dymo printer.', 'wc-product-barcodes' ),
 				'i18n_need_help'  			=> sprintf( __( '<a href="%s" target="_blank">Need Help?</a>', 'wc-product-barcodes' ), esc_url( $this->github_repro ) ),
 			);
 
@@ -108,16 +108,6 @@ class WC_Product_Barcodes extends WC_Integration {
 	function init_form_fields() {
 
 		$this->form_fields = array (
-			'dymo_printer'   	=> array (
-				'title'        	=> __( 'Dymo Printer', 'wc-product-barcodes' ),
-				'description'   => __( 'Choose an installed Dymo LabelWriter Printer.', 'wc-product-barcodes' ),
-				'type'        	=> 'select',
-				'css'        	=> 'min-width:300px;',
-				'options'     	=> array (
-					''         	=> __( 'Choose printer&hellip;', 'wc-product-barcodes' )
-				),
-				'default'       =>  ''
-			),
 			'label_size'     	=> array (
 				'title'        	=> __( 'Label Size', 'wc-product-barcodes' ),
 				'description'   => sprintf( __( 'Select a label size above. You can preview the options to be included on your label bellow. %s', 'wc-product-barcodes' ), '<span id="woocommerce-dymo-print-preview"><img src="" id="woocommerce-dymo-print-preview-img" style="display:none"></span>' ),
@@ -182,23 +172,6 @@ class WC_Product_Barcodes extends WC_Integration {
 				'default'       => 'no'
 			)
 		);
-
-		// Select dynamic printer from list after save
-		$selected_printer = '';
-
-		if ( isset( $_POST[$this->plugin_id . $this->id . '_dymo_printer'] ) ) {
-			$selected_printer = $_POST[$this->plugin_id . $this->id . '_dymo_printer'];
-		} elseif ( $this->get_option( 'dymo_printer') ) {
-			$selected_printer = $this->get_option( 'dymo_printer' );
-		}
-
-		if( is_admin() ) {
-			wc_enqueue_js("
-		    	$( window ).on( 'load', function() {
-          			$( \"#woocommerce_product_barcodes_dymo_printer\" ).find( \"option[value='". esc_attr( $selected_printer ) ."']\" ).prop( 'selected', true );
-        		} );
-      		");
-		}
 	}
 
 	/**
@@ -231,8 +204,8 @@ class WC_Product_Barcodes extends WC_Integration {
 	public function error_admin_notice() {
 		global $typenow, $pagenow, $plugin_page;
 
-		if ( $pagenow == 'edit.php' && $plugin_page == $this->id && $typenow == 'product' && $this->dymo_printer == '' ) {
-			echo sprintf( "<div class=\"error\"><p>%s <a href=\"%s\">%s</a></p></div>", __( 'You need to set up your Dymo printer and label settings before you can print.', 'wc-product-barcodes' ), esc_url( $this->settings_url() ), __( 'View settings', 'wc-product-barcodes' ) );
+		if ( $pagenow == 'edit.php' && $plugin_page == $this->id && $typenow == 'product' && $this->label_size == '' ) {
+			echo sprintf( "<div class=\"error\"><p>%s <a href=\"%s\">%s</a></p></div>", __( 'You need to set up your Dymo label settings before you can print.', 'wc-product-barcodes' ), esc_url( $this->settings_url() ), __( 'View settings', 'wc-product-barcodes' ) );
 		}
 	}
 
@@ -252,7 +225,10 @@ class WC_Product_Barcodes extends WC_Integration {
 					<p><a href="<?php echo esc_url( $this->settings_url() ); ?>" class="button" title="<?php echo esc_attr_e( 'View Settings', 'wc-product-barcodes' ); ?>"><?php _e( 'Settings', 'wc-product-barcodes' ); ?></a></p>
 				</div>
 				<div class="actions alignright">
-					<p><button type="button" id="wcb_print_btn" class="button button-primary" disabled="disabled"><?php echo __( 'Print <span class="print_no"></span> barcodes', 'wc-product-barcodes' ); ?></button></p>
+					<p><button type="button" id="wcb_print_btn" class="button button-primary" disabled="disabled"><?php echo __( 'Print <span class="print_no"></span> barcodes', 'wc-product-barcodes' ); ?></button>
+					<select id="woocommerce_product_barcodes_dymo_printer">
+						<option value=""><?php echo __( 'Choose printer&hellip;', 'wc-product-barcodes' ); ?></option>
+					</select></p>
 				</div>
 			</div>
     <?php
