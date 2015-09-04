@@ -3,8 +3,8 @@ Contributors: Jack Gregory
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=info@platformplatform.com&item_name=Donation+for+WooCommerce+Product+Barcodes
 Tags: woocommerce, dymo, barcodes
 Requires at least: 3.9.1
-Tested up to: 4.1
-Stable tag: 1.0.3
+Tested up to: 4.3
+Stable tag: 1.0.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 

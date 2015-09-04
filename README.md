@@ -4,6 +4,10 @@ Print WooCommerce product barcode labels using a DYMO LabelWriter printer.
 
 ### Usage with Chrome
 
+Update: This plugin will no longer work in Chrome Version 45. Since this version NPAPI support has been permanently removed. A new DYMO 2.0 SDK is in beta development which will remove the dependency of browser specific plugins like NPAPI and Active-X.
+
+For now this plugin works in Safari.
+
 With version 42 of Chrome, Google now disables NPAPI which is required to run the DYMO plugin. However, you can manually enable it by typing the following into the Chrome address bar and adjusting the setting:
 chrome://flags/#enable-npapi
 
@@ -22,6 +26,9 @@ chrome://flags/#enable-npapi
 4. Go to WooCommerce > Settings > Integration > Barcodes and choose Dymo printer from list, choose label size and design a simple barcode label.
 
 ### Changelog
+
+#### 1.0.4
+* Add better error messages if the dymo sdk plugin fails or if the browser is unsupported
 
 #### 1.0.3
 * Fix issue with how products and variations were displayed
