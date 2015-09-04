@@ -120,7 +120,7 @@ class WC_Product_Barcodes extends WC_Integration {
 			),
 			'label_size'     	=> array (
 				'title'        	=> __( 'Label Size', 'wc-product-barcodes' ),
-				'description'   => sprintf( __( 'Select a label size above. You can preview the options to be included on your label bellow. %s', 'wc-product-barcodes' ), '<span id="woocommerce-dymo-print-preview"><img src="" id="woocommerce-dymo-print-preview-img"></span>' ),
+				'description'   => sprintf( __( 'Select a label size above. You can preview the options to be included on your label bellow. %s', 'wc-product-barcodes' ), '<span id="woocommerce-dymo-print-preview"><img src="" id="woocommerce-dymo-print-preview-img" style="display:none"></span>' ),
 				'type'         	=> 'select',
 				'css'        	=> 'min-width:300px;',
 				'options'     	=> array (
