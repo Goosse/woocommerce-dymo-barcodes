@@ -53,8 +53,6 @@ jQuery( function( $ ) {
     function dymoLoadPrinters() {
         var printers = dymo.label.framework.getLabelWriterPrinters();
 
-        console.log(printers);
-
         if ( typeof printers === 'undefined' || printers.length === 0 ) {
             return;
         }
@@ -141,7 +139,9 @@ jQuery( function( $ ) {
      * @return {string}
      */
     function dymoPrintPreview() {
-        $( '#woocommerce-dymo-print-preview-img' ).attr( 'src', 'data:image/png;base64,' + label.render() );
+        if( label ) {
+            $( '#woocommerce-dymo-print-preview-img' ).show().attr( 'src', 'data:image/png;base64,' + label.render() );
+        }
     }
 
     /**
