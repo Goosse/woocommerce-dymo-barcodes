@@ -1,19 +1,40 @@
-( function( $ ) {
+jQuery( function( $ ) {
+
+    // wcb_params is required to continue, ensure the object exists
+    if ( typeof wcb_params === 'undefined' ) {
+        return false;
+    }
+
     var label, labelSet, labelSize,
         stock = 1;
 
     /**
      * init
      */
-    function init() {
-        loadLabel();
-        loadPrinters();
+    function dymoInit() {
+        dymoCheckEnvironment();
+        dymoLoadLabel();
+        dymoLoadPrinters();
     }
 
     /**
-     * load dymo label data
+     * Check that Dymo plugin is installed and browser is supported
+     *
+     * @return {string} error message
      */
-    function loadLabel() {
+    function dymoCheckEnvironment() {
+        var checkEnvironment = dymo.label.framework.checkEnvironment();
+        if ( !checkEnvironment.isFrameworkInstalled || !checkEnvironment.isBrowserSupported ) {
+            if ( $( 'body' ).hasClass( 'product_page_product_barcodes' ) ) {
+                $( '.wrap' ).find( 'h2' ).after( '<div class="error"><p>' + checkEnvironment.errorDetails + ' ' + wcb_params.i18n_need_help + '</p></div>' );
+            }
+        }
+    }
+
+    /**
+     * load Dymo label data
+     */
+    function dymoLoadLabel() {
         var labelSize = wcb_params.label_size,
             $printerList = $( '#woocommerce_product_barcodes_label_size' );
 
@@ -21,64 +42,79 @@
             labelSize = $printerList.val();
         }
 
-        getLabel( labelSize );
+        dymoGetLabel( labelSize );
     }
 
     /**
-     * get list of installed dymo label printers
-     * @return string
+     * Get a list of installed Dymo label printers
+     * 
+     * @return {string}
      */
-    function loadPrinters() {
-        var $printerList = $( '#woocommerce_product_barcodes_dymo_printer' ),
-            printers = dymo.label.framework.getLabelWriterPrinters();
+    function dymoLoadPrinters() {
+        var printers = dymo.label.framework.getLabelWriterPrinters();
 
-        if ( typeof printers === 'undefined' ) {
-            alert( wcb_params.no_prints_error );
+        console.log(printers);
+
+        if ( typeof printers === 'undefined' || printers.length === 0 ) {
             return;
         }
 
         for ( var i = 0; i < printers.length; ++i ) {
-            var printer = printers[ i ],
-                printerName = printer.name,
+            var printer = printers[ i ];
 
-                option = $( '<option>' ).val( printerName ).text( printerName );
-            $printerList.append( option );
+            $( '<option>' ).val( printer.modelName ).text( printer.name ).appendTo( '#woocommerce_product_barcodes_dymo_printer' );
         }
     }
 
     /**
-     * get label data
+     * Get label data
+     * 
      * @param  {string} size
      */
-    function getLabel( size ) {
+    function dymoGetLabel( size ) {
         $.get( wcb_params.plugin_url + '/assets/labels/' + size + '.label', function( labelXml ) {
             label = dymo.label.framework.openLabelXml( labelXml );
-            renderLabel();
-            printPreview();
+            dymoRenderLabel();
+            dymoPrintPreview();
         }, "text" );
     }
 
     /**
-     * print label
+     * Print label
+     * 
      * @param  {object} data
      * @param  {object} event
      * @return {void}
      */
-    function printLabel( data, event ) {
+    function dymoPrintLabel( data ) {
+        var printers = dymo.label.framework.getLabelWriterPrinters();
+        var checkEnvironment = dymo.label.framework.checkEnvironment();
         try {
-            if ( ! label ) {
-                throw wcb_params.label_loaded_error;
+            if ( !checkEnvironment.isFrameworkInstalled || !checkEnvironment.isBrowserSupported ) {
+                throw checkEnvironment.errorDetails;
             }
-            if ( ! labelSet ) {
-                throw wcb_params.data_loaded_error;
+            if ( printers.length === 0 ) {
+                throw wcb_params.i18n_no_printers_error;
             }
+            if ( !label ) {
+                throw wcb_params.i18n_label_loaded_error;
+            }
+            if ( !labelSet ) {
+                throw wcb_params.i18n_data_loaded_error;
+            }
+            // print label
             label.print( wcb_params.dymo_printer, null, data );
-        } catch ( event ) {
-            alert( event.message || event );
+        } catch ( e ) {
+            alert( e.message || e );
         }
     }
 
-    function createLabelSet() {
+    /**
+     * Create label set
+     *
+     * @return {void}
+     */
+    function dymoCreateLabelSet() {
         var labelSet = new dymo.label.framework.LabelSetBuilder();
 
         $( '.wcb_barcodes' ).each( function( index, value ) {
@@ -99,13 +135,21 @@
         return labelSet;
     }
 
-    function printPreview() {
-        var $preview = $( '#woocommerce-dymo-print-preview-img' ),
-            pngData = label.render();
-        $preview.attr( 'src', 'data:image/png;base64,' + pngData );
+    /**
+     * Display updated label preview
+     *
+     * @return {string}
+     */
+    function dymoPrintPreview() {
+        $( '#woocommerce-dymo-print-preview-img' ).attr( 'src', 'data:image/png;base64,' + label.render() );
     }
 
-    function renderLabel() {
+    /**
+     * Render label from meta data
+     *
+     * @return {void}
+     */
+    function dymoRenderLabel() {
         var metadata = $( '.metadata:checked' ).map( function() {
             return $.trim( $( this ).parent().text() );
         } ).get().join( ' ' );
@@ -124,29 +168,31 @@
     }
 
     // load label and defaults
-    $( window ).on( 'load', init );
+    $( window ).on( 'load', dymoInit );
 
+    // change preview label size
     $( document ).on( 'change', '#woocommerce_product_barcodes_label_size', function() {
         var labelSize = $( this ).val();
-        getLabel( labelSize );
+        dymoGetLabel( labelSize );
     } );
 
     // update label preview
     $( document ).on( 'change', '.label-preview-option', function() {
-        renderLabel();
-        printPreview();
+        dymoRenderLabel();
+        dymoPrintPreview();
     } );
 
     // update print button
     $( document ).on( 'change keyup', '.product-label-input', function() {
-        var sum = 0,
+        var barcodes = 0,
             $printButton = $( '#wcb_print_btn' );
 
         $( '.product-label-input' ).each( function() {
-            sum += Number( $( this ).val() );
+            barcodes += Number( $( this ).val() );
+
             if ( wcb_params.dymo_printer ) {
-                if ( sum > 0 ) {
-                    $printButton.prop( 'disabled', false ).find( 'span' ).text( sum );
+                if ( barcodes > 0 ) {
+                    $printButton.prop( 'disabled', false ).find( 'span' ).text( barcodes );
                 } else {
                     $printButton.prop( 'disabled', true ).find( 'span' ).text( '' );
                 }
@@ -156,10 +202,10 @@
 
     // print
     $( document ).on( 'click', '#wcb_print_btn', function( e ) {
-        event.preventDefault();
-        labelSet = createLabelSet();
-        printLabel( labelSet, e );
+        e.preventDefault();
+        labelSet = dymoCreateLabelSet();
+        dymoPrintLabel( labelSet );
         return false;
     } );
 
-} )( jQuery );
+} );

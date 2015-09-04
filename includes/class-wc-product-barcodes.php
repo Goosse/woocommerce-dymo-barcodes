@@ -7,7 +7,7 @@
  *
  * @class   	WC_Product_Barcodes
  * @extends  	WC_Integration
- * @since   	1.0.3
+ * @since   	1.0.4
  * @category  	Class
  * @author  	Jack Gregory
  */
@@ -19,7 +19,7 @@ class WC_Product_Barcodes extends WC_Integration {
 	 *
 	 * @var string
 	 */
-	protected $version = '1.0.3';
+	protected $version = '1.0.4';
 
 	/**
 	 * Init and hook in the integration.
@@ -31,7 +31,8 @@ class WC_Product_Barcodes extends WC_Integration {
 
 		$this->id               	= 'product_barcodes';
 		$this->method_title        	= __( 'Product Barcodes', 'wc-product-barcodes' );
-		$this->method_description  	= __( 'Print simple barcode labels with your Dymo LabelWriter printer or export your products into Dymo label software.', 'wc-product-barcodes' );
+		$this->github_repro			= 'https://github.com/jackgregory/woocommerce-dymo-barcodes';
+		$this->method_description  	= sprintf( __( 'Print simple barcode labels with a Dymo LabelWriter printer or export your products into Dymo label software. Head over to <a href="%s" target="_blank">Github</a> for more details and help.', 'wc-product-barcodes' ), esc_url( $this->github_repro ) );
 
 		// Load the settings.
 		$this->init_form_fields();
@@ -56,7 +57,7 @@ class WC_Product_Barcodes extends WC_Integration {
 	}
 
 	/**
-	 * Load javascript, css files and localise parameters
+	 * Load JavaScript, css files and localise parameters
 	 *
 	 * @access public
 	 * @param string $hook
@@ -64,17 +65,18 @@ class WC_Product_Barcodes extends WC_Integration {
 	 */
 
 	public function load_admin_styles( $hook ) {
-		if ( $hook == 'product_page_product_barcodes' ||  $hook == 'woocommerce_page_wc-settings' ) {
+		if ( $hook == 'product_page_product_barcodes' || $hook == 'woocommerce_page_wc-settings' ) {
 			wp_register_script( 'woocommerce-product-barcode-dymo', plugins_url( '/assets/js/DYMO.Label.Framework.1.2.6.js', dirname( __FILE__ ) ), null, $this->version  );
 			wp_register_script( 'woocommerce-product-barcode-script', plugins_url( '/assets/js/script.min.js', dirname( __FILE__ ) ), null, $this->version );
 
 			$localize_array = array(
-				'plugin_url'         => plugins_url( null, dirname( __FILE__ ) ),
-				'dymo_printer'       =>  $this->get_option( 'dymo_printer') ? $this->get_option( 'dymo_printer' )  : null,
-				'label_size'         =>  $this->get_option( 'label_size') ? $this->get_option( 'label_size' ) : 'medium',
-				'label_loaded_error' => __( 'Cant print, label is not loaded.', 'wc-product-barcodes' ),
-				'data_loaded_error'  => __( 'Cant print, label data is not loaded.', 'wc-product-barcodes' ),
-				'no_prints_error'  => 	__( 'No Dymo printers installed.', 'wc-product-barcodes' ),
+				'plugin_url'         		=> plugins_url( null, dirname( __FILE__ ) ),
+				'dymo_printer'       		=>  $this->get_option( 'dymo_printer') ? $this->get_option( 'dymo_printer' )  : null,
+				'label_size'         		=>  $this->get_option( 'label_size') ? $this->get_option( 'label_size' ) : 'medium',
+				'i18n_label_loaded_error' 	=> __( 'Cant print barcode! Label is not loaded.', 'wc-product-barcodes' ),
+				'i18n_data_loaded_error'  	=> __( 'Cant print barcode! Label data is not loaded.', 'wc-product-barcodes' ),
+				'i18n_no_printers_error'  	=> __( 'No Dymo printers found or installed.', 'wc-product-barcodes' ),
+				'i18n_need_help'  			=> sprintf( __( '<a href="%s" target="_blank">Need Help?</a>', 'wc-product-barcodes' ), esc_url( $this->github_repro ) ),
 			);
 
 			wp_localize_script( 'woocommerce-product-barcode-script', 'wcb_params', $localize_array );
