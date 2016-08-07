@@ -25,6 +25,10 @@ chrome://flags/#enable-npapi
 3. Allow Plugins in your Browser.
 4. Go to WooCommerce > Settings > Integration > Barcodes and choose Dymo printer from list, choose label size and design a simple barcode label.
 
+### Planned
+
+Update SDK to version 2.0 to support new DYMO label web service and Chrome.
+
 ### Changelog
 
 #### 1.0.4
