@@ -195,13 +195,13 @@ jQuery( function( $ ) {
 
         $( '.product-label-input' ).each( function() {
             barcodes += Number( $( this ).val() );
-
-            if ( barcodes > 0 ) {
-                $printButton.prop( 'disabled', false ).find( 'span' ).text( barcodes );
-            } else {
-                $printButton.prop( 'disabled', true ).find( 'span' ).text( '' );
-            }
         } );
+
+        if ( barcodes > 0 ) {
+            $printButton.prop( 'disabled', false ).find( 'span' ).text( barcodes );
+        } else {
+            $printButton.prop( 'disabled', true ).find( 'span' ).text( '' );
+        }
     } );
 
     // print
