@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Product Barcodes Integration
  *
@@ -7,11 +6,15 @@
  *
  * @class   	WC_Product_Barcodes
  * @extends  	WC_Integration
- * @since   	1.0.4.1
+ * @since   	1.0
  * @category  	Class
  * @author  	Jack Gregory
+ * @package 	Product Barcodes
  */
 
+/**
+ * WC_Product_Barcodes class
+ */
 class WC_Product_Barcodes extends WC_Integration {
 
 	/**
@@ -19,7 +22,7 @@ class WC_Product_Barcodes extends WC_Integration {
 	 *
 	 * @var string
 	 */
-	protected $version = '1.0.4.1';
+	protected $version = '1.0.4.2';
 
 	/**
 	 * Init and hook in the integration.
@@ -40,13 +43,13 @@ class WC_Product_Barcodes extends WC_Integration {
 
 		$this->label_size    = $this->get_option( 'label_size' );
 
-		// save settings
+		// Save settings.
 		add_action( 'woocommerce_update_options_integration_' . $this->id, array( $this, 'process_admin_options' ) );
 
-		// styles
+		// Styles.
 		add_action( 'admin_enqueue_scripts', array( $this, 'load_admin_styles' ) );
 
-		// hooks
+		// Hooks.
 		add_action( 'init', array( $this, 'load_plugin_textdomain' ) );
 		add_action( 'woocommerce_product_options_general_product_data', array( $this, 'product_data_field' ) );
 		add_action( 'admin_menu', array( $this, 'register_submenu_page' ) );
@@ -59,10 +62,9 @@ class WC_Product_Barcodes extends WC_Integration {
 	 * Load JavaScript, css files and localise parameters
 	 *
 	 * @access public
-	 * @param string $hook
+	 * @param  string $hook hook suffix for the current admin page.
 	 * @return void
 	 */
-
 	public function load_admin_styles( $hook ) {
 		if ( $hook == 'product_page_product_barcodes' || $hook == 'woocommerce_page_wc-settings' ) {
 			wp_register_script( 'woocommerce-product-barcode-dymo', plugins_url( '/assets/js/DYMO.Label.Framework.1.2.6.js', dirname( __FILE__ ) ), null, $this->version  );
@@ -70,8 +72,8 @@ class WC_Product_Barcodes extends WC_Integration {
 
 			$localize_array = array(
 				'plugin_url'         		=> plugins_url( null, dirname( __FILE__ ) ),
-				'dymo_printer'       		=>  $this->get_option( 'dymo_printer') ? $this->get_option( 'dymo_printer' )  : null,
-				'label_size'         		=>  $this->get_option( 'label_size') ? $this->get_option( 'label_size' ) : 'medium',
+				'dymo_printer'       		=> $this->get_option( 'dymo_printer' ) ? null : null,
+				'label_size'         		=> $this->get_option( 'label_size' ) ? $this->get_option( 'label_size' ) : 'medium',
 				'i18n_label_loaded_error' 	=> __( 'Cant print barcode! Label is not loaded.', 'wc-product-barcodes' ),
 				'i18n_data_loaded_error'  	=> __( 'Cant print barcode! Label data is not loaded.', 'wc-product-barcodes' ),
 				'i18n_no_printers_error'  	=> __( 'No Dymo printers found or installed.', 'wc-product-barcodes' ),
@@ -82,7 +84,7 @@ class WC_Product_Barcodes extends WC_Integration {
 			wp_localize_script( 'woocommerce-product-barcode-script', 'wcb_params', $localize_array );
 
 			wp_enqueue_script( 'woocommerce-product-barcode-dymo' );
-			wp_enqueue_script( 'woocommerce-product-barcode-script' );	
+			wp_enqueue_script( 'woocommerce-product-barcode-script' );
 
 			wp_enqueue_style( 'woocommerce_admin_styles', WC()->plugin_url() . '/assets/css/admin.css', array(), $this->version );
 			wp_enqueue_style( 'woocommerce-product-barcode', plugins_url( '/assets/css/admin.css', dirname( __FILE__ ) ), array(), $this->version );
@@ -107,19 +109,19 @@ class WC_Product_Barcodes extends WC_Integration {
 	 */
 	function init_form_fields() {
 
-		$this->form_fields = array (
-			'label_size'     	=> array (
+		$this->form_fields = array(
+			'label_size'     	=> array(
 				'title'        	=> __( 'Label Size', 'wc-product-barcodes' ),
 				'description'   => sprintf( __( 'Select a label size above. You can preview the options to be included on your label bellow. %s', 'wc-product-barcodes' ), '<span id="woocommerce-dymo-print-preview"><img src="" id="woocommerce-dymo-print-preview-img" style="display:none"></span>' ),
 				'type'         	=> 'select',
 				'css'        	=> 'min-width:300px;',
-				'options'     	=> array (
+				'options'     	=> array(
 					'medium'    => __( 'Medium - 32mm x 57mm', 'wc-product-barcodes' ),
-					'large'     => __( 'Large - 70mm x 54mm', 'wc-product-barcodes' )
+					'large'     => __( 'Large - 70mm x 54mm', 'wc-product-barcodes' ),
 				),
 				'default'       => 'medium',
 			),
-			'show_name'       	=> array (
+			'show_name'       	=> array(
 				'title'        	=> __( 'Label Options', 'wc-product-barcodes' ),
 				'label'        	=> __( 'Product Name', 'wc-product-barcodes' ),
 				'description'   => __( 'Display product name.', 'wc-product-barcodes' ),
@@ -127,50 +129,50 @@ class WC_Product_Barcodes extends WC_Integration {
 				'checkboxgroup' => 'start',
 				'class'        	=> 'label-preview-option name',
 				'default'      	=> 'yes',
-				'desc_tip'    	=> true
+				'desc_tip'    	=> true,
 			),
-			'show_price'    	=> array (
+			'show_price'    	=> array(
 				'label'        	=> __( 'Price', 'wc-product-barcodes' ),
 				'description'   => __( 'Display product or variant price.', 'wc-product-barcodes' ),
 				'type'         	=> 'checkbox',
 				'checkboxgroup' => '',
 				'class'        	=> 'label-preview-option metadata',
 				'default'       => 'yes',
-				'desc_tip'    	=>  true
+				'desc_tip'    	=> true,
 			),
-			'show_sku'      	=> array (
+			'show_sku'      	=> array(
 				'label'        	=> __( 'SKU', 'wc-product-barcodes' ),
 				'description'   => __( 'Display product or variant SKU.', 'wc-product-barcodes' ),
 				'type'         	=> 'checkbox',
 				'checkboxgroup' => '',
 				'class'        	=> 'label-preview-option metadata',
 				'default'       => 'yes',
-				'desc_tip'    	=>  true
+				'desc_tip'    	=> true,
 			),
-			'show_option'   	=> array (
+			'show_option'   	=> array(
 				'label'        	=> __( 'Variant Option', 'wc-product-barcodes' ),
 				'description'   => __( 'Display variant option.', 'wc-product-barcodes' ),
 				'type'         	=> 'checkbox',
 				'class'        	=> 'label-preview-option metadata',
 				'default'       => 'yes',
-				'desc_tip'    	=> true
+				'desc_tip'    	=> true,
 			),
-			'show_barcode'   	=> array (
+			'show_barcode'   	=> array(
 				'label'        	=> __( 'Barcode', 'wc-product-barcodes' ),
 				'description'   => __( 'Display barcode.', 'wc-product-barcodes' ),
 				'type'        	=> 'checkbox',
 				'checkboxgroup' => 'end',
 				'class'       	=> 'label-preview-option barcode',
 				'default'       => 'yes',
-				'desc_tip'    	=> true
+				'desc_tip'    	=> true,
 			),
-			'use_sku'      		=> array (
+			'use_sku'      		=> array(
 				'title'        	=> __( 'Barcode Value', 'wc-product-barcodes' ),
 				'label'        	=> __( 'Use SKU as the barcode value.', 'wc-product-barcodes' ),
 				'description'   => __( 'By default the ID is used.', 'wc-product-barcodes' ),
 				'type'         	=> 'checkbox',
-				'default'       => 'no'
-			)
+				'default'       => 'no',
+			),
 		);
 	}
 
@@ -188,7 +190,7 @@ class WC_Product_Barcodes extends WC_Integration {
 	 * Create a url for integrations settings tab.
 	 *
 	 * @access public
-	 * @return void
+	 * @return mixed
 	 */
 	public function settings_url() {
 		return add_query_arg( array( 'tab' => 'integration', 'section' => $this->id ), admin_url( 'admin.php?page=wc-settings' ) );
@@ -198,9 +200,8 @@ class WC_Product_Barcodes extends WC_Integration {
 	 * Display warning notice if settings or printer havent been set up.
 	 *
 	 * @access public
-	 * @return string
+	 * @return void
 	 */
-
 	public function error_admin_notice() {
 		global $typenow, $pagenow, $plugin_page;
 
@@ -231,7 +232,7 @@ class WC_Product_Barcodes extends WC_Integration {
 					</select></p>
 				</div>
 			</div>
-    <?php
+    	<?php
 
 		if ( ! class_exists( 'WC_Product_Barcodes_Table' ) ) {
 			return;
@@ -243,8 +244,8 @@ class WC_Product_Barcodes extends WC_Integration {
 
 	/**
 	 * Get link for barcode print screen.
-	 * @param  int $id
 	 * @access public
+	 * @param  int $id post ID.
 	 * @return string
 	 */
 	public function get_print_screen_link( $id ) {
@@ -254,15 +255,15 @@ class WC_Product_Barcodes extends WC_Integration {
 	/**
 	 * Get product attributes.
 	 *
-	 * @param object $product
 	 * @access public
+	 * @param object $product product object.
 	 * @return array
 	 */
 	private function get_attributes( $product ) {
 		$attributes = array();
 
 		if ( $product->is_type( 'variation' ) ) {
-			// variation attributes
+			// Variation attributes.
 			foreach ( $product->get_variation_attributes() as $attribute_name => $attribute ) {
 				$attributes[] = ucwords( str_replace( '-', ' ', $attribute ) );
 			}
@@ -286,7 +287,7 @@ class WC_Product_Barcodes extends WC_Integration {
 				<a href="<?php echo esc_url( $this->get_print_screen_link( $post->ID ) ); ?>" class="button"><?php _e( 'Print barcodes', 'wc-product-barcodes' ); ?></a>
         		<img class="help_tip" data-tip="<?php esc_attr_e( 'Print barcode labels for this product.', 'wc-product-barcodes' ); ?>" src="<?php echo esc_url( WC()->plugin_url() ); ?>/assets/images/help.png" height="16" width="16" />
         	</p>
-    	</div><?php 
+    	</div><?php
 	}
 
 	/**
@@ -347,10 +348,10 @@ class WC_Product_Barcodes extends WC_Integration {
 				return;
 			}
 
-			header( "Content-Type: text/csv;charset=utf-8" );
-			header( "Content-Disposition: attachment;filename=\"" . apply_filters( 'woocommerce_product_barcodes_export_filename', 'product_labels' ) . ".csv\"" );
-			header( "Pragma: no-cache" );
-			header( "Expires: 0" );
+			header( 'Content-Type: text/csv;charset=utf-8' );
+			header( 'Content-Disposition: attachment;filename=' . apply_filters( 'woocommerce_product_barcodes_export_filename', 'product_labels' ) . '.csv' );
+			header( 'Pragma: no-cache' );
+			header( 'Expires: 0' );
 
 			$post_ids = array_map( 'absint', (array) $_REQUEST['post'] );
 			$csv      = fopen( 'php://output', 'w' );
@@ -359,7 +360,7 @@ class WC_Product_Barcodes extends WC_Integration {
 
 			fwrite( $csv, $headers );
 
-			foreach( $post_ids as $post_id ) {
+			foreach ( $post_ids as $post_id ) {
 				$fields = array();
 				$_product = get_product( $post_id );
 
@@ -374,11 +375,10 @@ class WC_Product_Barcodes extends WC_Integration {
 						$fields_variant[] = wc_format_decimal( $_variation->get_price(), 2 );
 						$fields_variant[] = $_variation->get_sku();
 						$fields_variant[] = $_variation->get_variation_id();
-						$fields_variant[] = join(' / ', $attributes );
+						$fields_variant[] = join( ' / ', $attributes );
 
 						fputcsv( $csv, $fields_variant );
 					}
-
 				} else {
 					$fields[] = $_product->get_title();
 					$fields[] = wc_format_decimal( $_product->get_price(), 2 );
@@ -393,5 +393,3 @@ class WC_Product_Barcodes extends WC_Integration {
 		}
 	}
 }
-
-?>
