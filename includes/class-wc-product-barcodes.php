@@ -66,9 +66,9 @@ class WC_Product_Barcodes extends WC_Integration {
 	 * @return void
 	 */
 	public function load_admin_styles( $hook ) {
-		if ( $hook == 'product_page_product_barcodes' || $hook == 'woocommerce_page_wc-settings' ) {
-			wp_register_script( 'woocommerce-product-barcode-dymo', plugins_url( '/assets/js/DYMO.Label.Framework.1.2.6.js', dirname( __FILE__ ) ), null, $this->version  );
-			wp_register_script( 'woocommerce-product-barcode-script', plugins_url( '/assets/js/script.min.js', dirname( __FILE__ ) ), null, $this->version );
+		if ( 'product_page_product_barcodes' === $hook || 'woocommerce_page_wc-settings' === $hook ) {
+			wp_register_script( 'woocommerce-product-barcode-dymo', plugins_url( '/assets/js/DYMO.Label.Framework.1.2.6.js', dirname( __FILE__ ) ), array( 'jquery' ), $this->version );
+			wp_register_script( 'woocommerce-product-barcode-script', plugins_url( '/assets/js/script.min.js', dirname( __FILE__ ) ), array( 'jquery', 'woocommerce-product-barcode-dymo' ), $this->version );
 
 			$localize_array = array(
 				'plugin_url'         		=> plugins_url( null, dirname( __FILE__ ) ),
