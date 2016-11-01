@@ -8,10 +8,11 @@
  * @since   	1.0.3
  * @category  	Class
  * @author  	Jack Gregory
+ * @package  	woocommerce-dymo-barcodes
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
-	exit; // Exit if accessed directly
+	exit; // Exit if accessed directly.
 }
 
 if ( ! class_exists( 'WP_List_Table' ) ) {
@@ -37,7 +38,7 @@ class WC_Product_Barcodes_Table extends WP_List_Table {
 		parent::__construct( array(
 				'singular'  => __( 'Product Barcode', 'wc-product-barcodes' ),
 				'plural'    => __( 'Product Barcodes', 'wc-product-barcodes' ),
-				'ajax'      => false
+				'ajax'      => false,
 			) );
 	}
 
@@ -50,6 +51,8 @@ class WC_Product_Barcodes_Table extends WP_List_Table {
 
 	/**
 	 * Don't need this
+	 *
+	 * @param string $position table nav position.
 	 */
 	public function display_tablenav( $position ) {
 		if ( $position != 'top' ) {
@@ -67,6 +70,7 @@ class WC_Product_Barcodes_Table extends WP_List_Table {
 
 	/**
 	 * column_default function.
+	 * Get formated meta
 	 *
 	 * @param mixed   $item
 	 * @param mixed   $column_name
@@ -107,17 +111,18 @@ class WC_Product_Barcodes_Table extends WP_List_Table {
 			}
 			break;
 
-		case 'stock_level' :
+				break;
 
 			echo (int) $product->get_stock_quantity();
 
-			break;
+				break;
 
 		case 'wcb_barcodes' :
 			echo '<p>';
 			echo "<input type='number' class='product-label-input' value='0' min='0' tabindex='1'>";
 
 			$options = get_option( 'woocommerce_product_barcodes_settings' );
+				break;
 
 			if ( $sku = $product->get_sku() ) {
 				$barcode = $sku;
@@ -147,6 +152,7 @@ class WC_Product_Barcodes_Table extends WP_List_Table {
 			echo "<input type='hidden' class='product-barcode' value='" . esc_attr( $barcode ) . "'>";
 			echo '</p>';
 			break;
+				break;
 		}
 	}
 
@@ -168,9 +174,6 @@ class WC_Product_Barcodes_Table extends WP_List_Table {
 
 	/**
 	 * Get products post type.
-	 *
-	 * @access public
-	 * @return array
 	 */
 	public function prepare_items() {
 
@@ -179,19 +182,17 @@ class WC_Product_Barcodes_Table extends WP_List_Table {
 		$hidden   = array();
 		$sortable = $this->get_sortable_columns();
 
-		// Column headers
+		// Column headers.
 		$this->_column_headers = array( $columns, $hidden, $sortable );
 
 		$current_page = $this->get_pagenum();
 
-		// Query args
+		// Query args.
 		$args = array(
-			'post_type'           => array(
-				'product'
-			),
+			'post_type'           => array( 'product' ),
 			'posts_per_page'      => $per_page,
 			'ignore_sticky_posts' => true,
-			'paged'               => $current_page
+			'paged'               => $current_page,
 		);
 
 		if ( isset( $_REQUEST['ids'] ) ) {
@@ -216,7 +217,6 @@ class WC_Product_Barcodes_Table extends WP_List_Table {
 
 					$items[] = $variation;
 				}
-
 			} else {
 				$items[] = $product;
 			}
