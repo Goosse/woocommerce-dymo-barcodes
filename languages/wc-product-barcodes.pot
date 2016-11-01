@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Woocommerce Product Barcodes\n"
-"POT-Creation-Date: 2015-09-04 13:08+0100\n"
+"POT-Creation-Date: 2016-11-01 22:59+0000\n"
 "PO-Revision-Date: 2015-04-23 18:00-0000\n"
 "Last-Translator: Jack Gregory <jack@platformplatform.com>\n"
 "Language-Team: \n"
@@ -10,197 +10,223 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.4\n"
-"X-Poedit-Basepath: .\n"
+"X-Generator: Poedit 1.8.6\n"
+"X-Poedit-Basepath: ..\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;esc_attr_e\n"
-"X-Poedit-SearchPath-0: .\n"
-"X-Poedit-SearchPath-1: ..\n"
+"X-Poedit-SearchPath-0: languages\n"
+"X-Poedit-SearchPath-1: .\n"
+"X-Poedit-SearchPathExcluded-0: assets/js\n"
 
-#: ../includes/class-wc-product-barcodes-table.php:38
+#: includes/class-wc-product-barcodes-table.php:38
 msgid "Product Barcode"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes-table.php:39
-#: ../includes/class-wc-product-barcodes.php:33
-#: ../includes/class-wc-product-barcodes.php:184
+#: includes/class-wc-product-barcodes-table.php:39
+#: includes/class-wc-product-barcodes.php:36
+#: includes/class-wc-product-barcodes.php:193
 msgid "Product Barcodes"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes-table.php:48
+#: includes/class-wc-product-barcodes-table.php:48
 msgid "No products found."
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes-table.php:158
+#: includes/class-wc-product-barcodes-table.php:201
 msgid "Image"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes-table.php:159
+#: includes/class-wc-product-barcodes-table.php:202
 msgid "Product"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes-table.php:160
-#: ../includes/class-wc-product-barcodes.php:133
+#: includes/class-wc-product-barcodes-table.php:203
+#: includes/class-wc-product-barcodes.php:142
 msgid "Price"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes-table.php:161
-#: ../includes/class-wc-product-barcodes.php:142
+#: includes/class-wc-product-barcodes-table.php:204
+#: includes/class-wc-product-barcodes.php:151
 msgid "SKU"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes-table.php:162
+#: includes/class-wc-product-barcodes-table.php:205
 msgid "Quantity"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes-table.php:163
-#: ../includes/class-wc-product-barcodes.php:184
-#: ../includes/class-wc-product-barcodes.php:285
+#: includes/class-wc-product-barcodes-table.php:206
+#: includes/class-wc-product-barcodes.php:193
+#: includes/class-wc-product-barcodes.php:295
 msgid "Barcodes"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:35
+#: includes/class-wc-product-barcodes.php:38
 #, php-format
 msgid ""
 "Print simple barcode labels with a Dymo LabelWriter printer or export your "
 "products into Dymo label software. Head over to <a href=\"%s\" target="
-"\"_blank\">Github</a> for more details and help."
+"\"_blank\">Github</a> for more details, issue reporting and help."
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:75
-msgid "Cant print barcode! Label is not loaded."
+#: includes/class-wc-product-barcodes.php:84
+msgid "Cant print barcode. Label is not loaded."
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:76
-msgid "Cant print barcode! Label data is not loaded."
+#: includes/class-wc-product-barcodes.php:85
+msgid "Cant print barcode. Label data is not loaded."
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:77
+#: includes/class-wc-product-barcodes.php:86
 msgid "No Dymo printers found or installed."
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:78
+#: includes/class-wc-product-barcodes.php:87
 msgid "Select a Dymo printer."
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:79
+#: includes/class-wc-product-barcodes.php:88
 #, php-format
 msgid "<a href=\"%s\" target=\"_blank\">Need Help?</a>"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:112
+#: includes/class-wc-product-barcodes.php:120
 msgid "Label Size"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:113
+#: includes/class-wc-product-barcodes.php:121
 #, php-format
 msgid ""
 "Select a label size above. You can preview the options to be included on "
-"your label bellow. %s"
+"your label below. %s"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:117
+#: includes/class-wc-product-barcodes.php:125
+msgid "Small - 25mm x 25mm"
+msgstr ""
+
+#: includes/class-wc-product-barcodes.php:126
 msgid "Medium - 32mm x 57mm"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:118
-msgid "Large - 70mm x 54mm"
+#: includes/class-wc-product-barcodes.php:127
+msgid "Large - 28mm x 89mm"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:123
+#: includes/class-wc-product-barcodes.php:132
 msgid "Label Options"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:124
+#: includes/class-wc-product-barcodes.php:133
 msgid "Product Name"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:125
+#: includes/class-wc-product-barcodes.php:134
 msgid "Display product name."
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:134
+#: includes/class-wc-product-barcodes.php:143
 msgid "Display product or variant price."
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:143
+#: includes/class-wc-product-barcodes.php:152
 msgid "Display product or variant SKU."
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:151
+#: includes/class-wc-product-barcodes.php:160
 msgid "Variant Option"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:152
+#: includes/class-wc-product-barcodes.php:161
 msgid "Display variant option."
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:159
+#: includes/class-wc-product-barcodes.php:168
 msgid "Barcode"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:160
+#: includes/class-wc-product-barcodes.php:169
 msgid "Display barcode."
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:168
+#: includes/class-wc-product-barcodes.php:177
 msgid "Barcode Value"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:169
-msgid "Use SKU as the barcode value."
+#: includes/class-wc-product-barcodes.php:178
+msgid "Use product or variant SKU as the barcode value."
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:170
-msgid "By default the ID is used."
+#: includes/class-wc-product-barcodes.php:179
+msgid "By default the product or variant ID is used."
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:208
+#: includes/class-wc-product-barcodes.php:216
 msgid "You need to set up your Dymo label settings before you can print."
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:208
+#: includes/class-wc-product-barcodes.php:216
 msgid "View settings"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:222
+#: includes/class-wc-product-barcodes.php:231
 msgid "Print Product Barcodes"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:225
+#: includes/class-wc-product-barcodes.php:234
 msgid "View Settings"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:225
+#: includes/class-wc-product-barcodes.php:234
 msgid "Settings"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:228
+#: includes/class-wc-product-barcodes.php:237
 msgid "Print <span class=\"print_no\"></span> barcodes"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:230
-msgid "Choose printer&hellip;"
+#: includes/class-wc-product-barcodes.php:239
+msgid "Choose printer"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:286
+#: includes/class-wc-product-barcodes.php:296
 msgid "Print barcodes"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:287
+#: includes/class-wc-product-barcodes.php:297
 msgid "Print barcode labels for this product."
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:303
-#: ../includes/class-wc-product-barcodes.php:304
+#: includes/class-wc-product-barcodes.php:312
+#: includes/class-wc-product-barcodes.php:313
 msgid "Export Labels"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:305
-#: ../includes/class-wc-product-barcodes.php:306
+#: includes/class-wc-product-barcodes.php:314
+#: includes/class-wc-product-barcodes.php:315
 msgid "Print Labels"
 msgstr ""
 
-#: ../includes/class-wc-product-barcodes.php:358
+#: includes/class-wc-product-barcodes.php:367
 msgid "product_name, price, sku, id, variant_option"
+msgstr ""
+
+#: includes/plugin-update-checker/github-checker.php:119
+msgid "There is no changelog available."
+msgstr ""
+
+#: includes/plugin-update-checker/plugin-update-checker.php:763
+msgid "Check for updates"
+msgstr ""
+
+#: includes/plugin-update-checker/plugin-update-checker.php:807
+msgid "This plugin is up to date."
+msgstr ""
+
+#: includes/plugin-update-checker/plugin-update-checker.php:809
+msgid "A new version of this plugin is available."
+msgstr ""
+
+#: includes/plugin-update-checker/plugin-update-checker.php:811
+#, php-format
+msgid "Unknown update checker status \"%s\""
 msgstr ""
