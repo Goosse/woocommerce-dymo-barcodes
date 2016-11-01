@@ -9,7 +9,7 @@
  * @since   	1.0
  * @category  	Class
  * @author  	Jack Gregory
- * @package 	Product Barcodes
+ * @package  	woocommerce-dymo-barcodes
  */
 
 /**
@@ -278,7 +278,6 @@ class WC_Product_Barcodes_Integration extends WC_Integration {
 	 * Add print button and label data to product data meta box
 	 *
 	 * @access public
-	 * @return void
 	 */
 	public function product_data_field() {
 		global $post;
@@ -295,7 +294,6 @@ class WC_Product_Barcodes_Integration extends WC_Integration {
 	 * Add extra bulk action options to export orders
 	 *
 	 * @access public
-	 * @return void
 	 */
 	public function add_bulk_actions() {
 		global $post_type, $pagenow;
