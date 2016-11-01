@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Product Barcodes Integration
  *
@@ -69,95 +68,133 @@ class WC_Product_Barcodes_Table extends WP_List_Table {
 	}
 
 	/**
-	 * column_default function.
 	 * Get formated meta
 	 *
-	 * @param mixed   $item
-	 * @param mixed   $column_name
+	 * @param object $product product object.
+	 */
+	public function get_formated_meta( $product ) {
+
+		$formatted_meta = array();
+
+		foreach ( $product->get_variation_attributes() as $attribute_name => $attribute ) {
+
+			$name = urldecode( str_replace( 'attribute_', '', $attribute_name ) );
+
+			if ( taxonomy_exists( $name ) ) {
+				$term = get_term_by( 'slug', $attribute, $name );
+
+				if ( ! is_wp_error( $term ) && is_object( $term ) && $term->name ) {
+					$attribute = $term->name;
+				}
+			}
+
+			$formatted_meta[] = array(
+				'label' => wc_attribute_label( $name, $product ),
+				'value' => $attribute,
+			);
+		}
+
+		return $formatted_meta;
+	}
+
+	/**
+	 * Column default
+	 *
+	 * @param mixed $product product object.
+	 * @param mixed $column_name column name.
 	 */
 	public function column_default( $product, $column_name ) {
 		$action_id = $product->is_type( 'variation' ) ? $product->parent->id : $product->id;
 
 		switch ( $column_name ) {
-		case 'product_image' :
-			echo '<strong><a href="' . get_edit_post_link( $action_id ) . '">' . $product->get_image() . '</a></strong>';
-			break;
+			case 'product_image' :
+				echo '<strong><a href="' . esc_url( get_edit_post_link( $action_id ) ) . '">' .  $product->get_image() . '</a></strong>';
 
-		case 'product' :
-			// Get variation data
-			if ( $product->is_type( 'variation' ) ) {
-				
-				$list_attributes = array();
+				break;
+			case 'product' :
+				// Get variation data.
+				if ( $product->is_type( 'variation' ) ) {
 
-				foreach ( $product->get_variation_attributes() as $name => $attribute ) {
-					$list_attributes[] .= wc_attribute_label( str_replace( 'attribute_', '', $name ) ) . ': <strong>' . $attribute . '</strong>';
+					$meta_list = array();
+
+					$formatted_meta = $this->get_formated_meta( $product );
+
+					if ( ! empty( $formatted_meta ) ) {
+						foreach ( $formatted_meta as $meta ) {
+							$meta_list[] = $meta['label'] . ': <strong>' . $meta['value'] . '</strong>';
+						}
+					}
+
+					echo '<a href="' . esc_url( get_edit_post_link( $action_id ) ) . '">' . esc_attr( $product->parent->get_title() ) . '</a>';
+					echo '<div class="description">' . implode( ', ', $meta_list ) . '</div>';
+				} else {
+					echo '<a href="' . esc_url( get_edit_post_link( $action_id ) ) . '">' . esc_attr( $product->get_title() ) . '</a>';
 				}
 
-				echo '<a href="' . get_edit_post_link( $action_id ) . '">' . $product->parent->get_title() . '</a>';
-				echo '<div class="description">' . implode( ', ', $list_attributes ) . '</div>';
-			} else {
-				echo '<a href="' . get_edit_post_link( $action_id ) . '">' . $product->get_title() . '</a>';
-			}
-			break;
-		case 'product_price' :
-			echo $product->get_price_html() ? $product->get_price_html() : '<span class="na">&ndash;</span>';
-			break;
-
-		case 'product_sku' :
-			if ( $sku = $product->get_sku() ) {
-				echo $sku;
-			} else {
-				echo '<span class="na">&ndash;</span>';
-			}
-			break;
+				break;
+			case 'product_price' :
+				echo $product->get_price_html() ? $product->get_price_html() : '<span class="na">&ndash;</span>';
 
 				break;
 
-			echo (int) $product->get_stock_quantity();
-
-				break;
-
-		case 'wcb_barcodes' :
-			echo '<p>';
-			echo "<input type='number' class='product-label-input' value='0' min='0' tabindex='1'>";
-
-			$options = get_option( 'woocommerce_product_barcodes_settings' );
-				break;
-
-			if ( $sku = $product->get_sku() ) {
-				$barcode = $sku;
-			} else {
-				$barcode = $product->id;
-			}
-
-			$metadata = array();
-
-			$metadata[] = $options['show_price'] == 'yes' ? get_woocommerce_currency_symbol() . wc_format_decimal( $product->get_price(), 2 ) : '';
-			$metadata[] = $options['show_sku'] == 'yes' ? $barcode : '';
-
-			// Get variation data
-			if ( $product->is_type( 'variation' ) ) {
-
-				$attributes = array();
-
-				foreach ( $product->get_variation_attributes() as $attribute_name => $attribute ) {
-					$attributes[] = ucwords( str_replace( '-', ' ', $attribute ) );
+			case 'product_sku' :
+				if ( $sku = $product->get_sku() ) {
+					echo esc_html( $sku );
+				} else {
+					echo '<span class="na">&ndash;</span>';
 				}
 
-				$metadata[] = $options['show_option'] == 'yes' ? join( ' / ', $attributes ) : '';
-			}
+				break;
 
-			echo "<input type='hidden' class='product-metadata' value='" . esc_attr( join( ' ', $metadata ) ) . "'>";
-			echo "<input type='hidden' class='product-name' value='" . esc_attr( $product->get_title() ) . "'>";
-			echo "<input type='hidden' class='product-barcode' value='" . esc_attr( $barcode ) . "'>";
-			echo '</p>';
-			break;
+			case 'stock_level' :
+				echo (int) $product->get_stock_quantity();
+
+				break;
+
+			case 'wcb_barcodes' :
+				echo '<p>';
+				echo "<input type='number' class='product-label-input' value='0' min='0' tabindex='1'>";
+
+				$options = get_option( 'woocommerce_product_barcodes_settings' );
+
+				if ( $sku = $product->get_sku() ) {
+					$barcode = $sku;
+				} else {
+					$barcode = $product->id;
+				}
+
+				$metadata = array();
+
+				$metadata[] = 'yes' === $options['show_price'] ? get_woocommerce_currency_symbol() . wc_format_decimal( $product->get_price(), 2 ) : '';
+				$metadata[] = 'yes' === $options['show_sku'] ? $barcode : '';
+
+				// Get variation data.
+				if ( $product->is_type( 'variation' ) ) {
+
+					$meta_list = array();
+
+					$formatted_meta = $this->get_formated_meta( $product );
+
+					if ( ! empty( $formatted_meta ) ) {
+						foreach ( $formatted_meta as $meta ) {
+							$meta_list[] = $meta['value'];
+						}
+					}
+
+					$metadata[] = 'yes' === $options['show_option'] ? join( ' / ', $meta_list ) : '';
+				}
+
+				echo "<input type='hidden' class='product-metadata' value='" . esc_attr( join( ' ', $metadata ) ) . "'>";
+				echo "<input type='hidden' class='product-name' value='" . esc_attr( $product->get_title() ) . "'>";
+				echo "<input type='hidden' class='product-barcode' value='" . esc_attr( $barcode ) . "'>";
+				echo '</p>';
+
 				break;
 		}
 	}
 
 	/**
-	 * get_columns function.
+	 * Get columns
 	 */
 	public function get_columns() {
 		$columns = array(
