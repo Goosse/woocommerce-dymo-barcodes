@@ -22,7 +22,7 @@ class WC_Product_Barcodes_Integration extends WC_Integration {
 	 *
 	 * @var string
 	 */
-	protected $version = '1.0.4.2';
+	protected $version = '1.1.0';
 
 	/**
 	 * Init and hook in the integration.
