@@ -9,3 +9,5 @@ assets/css/.sass-cache/
 *.sublime-project
 
 *.sublime-workspace
+
+.DS_Store
