@@ -1,35 +1,55 @@
 ## Woocommerce Product Barcodes
 
-Print WooCommerce product barcode labels using a DYMO LabelWriter printer.
-
-### Usage with Chrome
-
-Update: This plugin will no longer work in Chrome Version 45. Since this version NPAPI support has been permanently removed. A new DYMO 2.0 SDK is in beta development which will remove the dependency of browser specific plugins like NPAPI and Active-X.
-
-For now this plugin works in Safari.
-
-With version 42 of Chrome, Google now disables NPAPI which is required to run the DYMO plugin. However, you can manually enable it by typing the following into the Chrome address bar and adjusting the setting:
-chrome://flags/#enable-npapi
+Print WooCommerce product barcode labels using a Dymo LabelWriter printer.
 
 ### Features
 
 - Print product barcode labels from the WordPress admin.
-- Select from medium and large labels in the settings.
+- Select from small, medium and large labels in the settings.
 - Configure what data prints on each label in the settings.
 - Export labels in .csv format to import into Dymo software for bulk printing.
 
-### Usage
+### Installation
 
-1. Install Dymo LabelWriter printer software.
-2. Connect Dymo LabelWriter 450 barcode printer.
-3. Allow Plugins in your Browser.
-4. Go to WooCommerce > Settings > Integration > Barcodes and choose Dymo printer from list, choose label size and design a simple barcode label.
+1. Install most recent Dymo LabelWriter printer software and driver v8.5.3.
+2. Dymo web service should be active and running.
+3. Connect Dymo LabelWriter 450 barcode printer. 
+4. Download master branch unzip and upload via your favourite FTP application to your plugins folder. The WordPress codex contains [instructions on how to do this here](https://codex.wordpress.org/Managing_Plugins#Manual_Plugin_Installation).
+5. Active plugin in your WordPress plugin dashboard.
+6. Go to WooCommerce > Settings > Integration > Product Barcodes and choose label size and choose barcode label options.
+7. After first install future updates can be performed in your WordPress plugin dashboard.
 
-### Planned
+## Frequently Asked Questions
 
-Update SDK to version 2.0 to support new DYMO label web service and Chrome.
+#### How do I install the DYMO Label Web Service?
+
+First, download the appropriate installer for your OS. You can find them at the following URL: (http://www.dymo.com/en-US/online-support/)
+
+#### How can I tell if I have DYMO Label Web Service installed?
+
+The DYMO Label Web Service is installed as long as you have installed DYMO Label Software 8.5.3 or newer using the express "Express" mode. If you choose to install DYMO Label Software in “Custom” mode, be sure to select the DYMO Label Web Service component.
+
+#### How can I tell if the DYMO Label Web Service is running?
+
+You should see the DYMO Label service application icon within the system tray (Windows) and toolbar (Mac).
+
+#### I do not see the DYMO Label service application icon. How can I start it?
+
+- Windows: You can start the web service again by navigating to the DLS working folder and running the executable named DYMO.DLS.Printing.Host.exe.
+- Mac: Open a Finder window, navigate to the `/Library/Frameworks/DYMO/SDK/` folder, and click on the DYMO.DLS.Printing.Host.app icon. Open a terminal prompt and enter the following command: `launchctl start com.dymo.dls.webservice`
+
+#### The Web Service has failed to install
+
+If this happens, try and turn off your Anti-virus software before re-installing.
 
 ### Changelog
+
+#### 1.1.0
+* Updated SDK to version 2.0 to support new DYMO label web service and Chrome.
+* Added small barcode label option.
+
+#### 1.0.4.1
+* Add better event handling of barcode label print button
 
 #### 1.0.4
 * Add better error messages if the dymo sdk plugin fails or if the browser is unsupported
