@@ -61,15 +61,15 @@ If this happens, try and turn off your Anti-virus software before re-installing.
 * Added small barcode label option.
 
 = 1.0.4.1 =
-* Add better event handling of barcode label print button
+* Add better event handling of barcode label print button.
 
 = 1.0.4 =
-* Add better error messages if the dymo sdk plugin fails or if the browser is unsupported
+* Add better error messages if the dymo sdk plugin fails or if the browser is unsupported.
 
 = 1.0.3 =
-* Fix issue with how products and variations were displayed
-* Add option to bulk print labels from products table
-* Fix an issue where prices weren't printing
+* Fix issue with how products and variations were displayed.
+* Add option to bulk print labels from products table.
+* Fix an issue where prices weren't printing.
 
 = 1.0.2 =
 * Refactor product barcode wp table.
