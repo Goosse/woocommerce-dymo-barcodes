@@ -1,25 +1,67 @@
 <?php
-
-/*
- Plugin Name: WooCommerce Dymo Barcodes
- Description: Print WooCommerce Product barcode labels using a Dymo Label Printer.
- Author: Jack Gregory
- Version: 1.0.4.1
- Author URI: http://media.platformplatform.com
+/**
+ * Plugin Name: WooCommerce Dymo Barcodes
+ * Description: Print WooCommerce product barcode labels using a Dymo Label Printer.
+ * Author: Jack Gregory
+ * Version: 1.1.0
+ * Author URI: http://media.platformplatform.com
+ *
+ * @package  woocommerce-dymo-barcodes
  */
 
-// Add the integration to WooCommerce
-function wc_product_barcodes_add_integration( $integrations ) {
-	global $woocommerce;
+if ( ! class_exists( 'WC_Product_Barcodes' ) ) :
 
-	if ( is_object( $woocommerce ) && version_compare( $woocommerce->version, '2.1-beta-1', '>=' ) ) {
-		include_once( 'includes/class-wc-product-barcodes.php' );
-		$integrations[] = 'WC_Product_Barcodes';
+	/**
+	 * Add integration to WooCommerce.
+	 */
+	class WC_Product_Barcodes {
+
+		/**
+		* Construct the plugin.
+		*/
+		public function __construct() {
+			add_action( 'plugins_loaded', array( $this, 'init' ) );
+			add_action( 'admin_init', array( $this, 'updater' ) );
+		}
+
+		/**
+		* Initialize the plugin.
+		*/
+		public function init() {
+			// Checks if WooCommerce is installed.
+			if ( class_exists( 'WC_Integration' ) ) {
+				// Include integration class.
+				include_once 'includes/class-wc-product-barcodes.php';
+				// Register the integration.
+				add_filter( 'woocommerce_integrations', array( $this, 'add_integration' ) );
+			}
+		}
+
+		/**
+		 * Add a new integration to WooCommerce.
+		 */
+		public function add_integration( $integrations ) {
+			$integrations[] = 'WC_Product_Barcodes_Integration';
+
+			return $integrations;
+		}
+
+		/**
+		 * Plugin updater
+		 */
+		public function updater() {
+			if ( ! class_exists( 'PucFactory' ) ) {
+				require plugin_dir_path( __FILE__ ) . 'includes/plugin-update-checker/plugin-update-checker.php';
+			}
+			/** @var \PucGitHubChecker_3_1 $checker */
+			$updater = PucFactory::getLatestClassVersion( 'PucGitHubChecker' );
+
+			if ( class_exists( $updater ) ) {
+				$checker = new $updater( 'https://github.com/jackgregory/woocommerce-dymo-barcodes/', __FILE__, 'master' );
+			}
+		}
 	}
 
-	return $integrations;
-}
+	$WC_Product_Barcodes = new WC_Product_Barcodes( __FILE__ );
 
-add_filter( 'woocommerce_integrations', 'wc_product_barcodes_add_integration', 10 );
-
-?>
+endif;

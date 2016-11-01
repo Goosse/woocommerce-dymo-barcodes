@@ -15,7 +15,7 @@
 /**
  * WC_Product_Barcodes class
  */
-class WC_Product_Barcodes extends WC_Integration {
+class WC_Product_Barcodes_Integration extends WC_Integration {
 
 	/**
 	 * Plugin version.
