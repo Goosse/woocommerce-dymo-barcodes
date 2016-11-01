@@ -232,9 +232,10 @@ class WC_Product_Barcodes_Table extends WP_List_Table {
 			'paged'               => $current_page,
 		);
 
-		if ( isset( $_REQUEST['ids'] ) ) {
-			$ids = explode( ',', $_REQUEST['ids'] );
-			$args['post__in'] 		= array_merge( array( 0 ), $ids );
+		if ( isset( $_REQUEST['product_ids'] ) ) {
+			$ids = explode( ',', $_REQUEST['product_ids'] );
+
+			$args['post__in'] 		= array_merge( array( 0 ), wc_clean( $ids ) );
 			$args['posts_per_page']	= -1;
 		}
 
