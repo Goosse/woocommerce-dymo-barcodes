@@ -244,12 +244,13 @@ class WC_Product_Barcodes extends WC_Integration {
 
 	/**
 	 * Get link for barcode print screen.
+	 * 
 	 * @access public
-	 * @param  int $id post ID.
+	 * @param  int $product_id product ID.
 	 * @return string
 	 */
-	public function get_print_screen_link( $id ) {
-		return add_query_arg( array( 'page' => $this->id, 'ids' => $id ), admin_url( 'edit.php?post_type=product' ) );
+	public function get_print_screen_link( $product_id ) {
+		return add_query_arg( array( 'page' => $this->id, 'product_ids' => $product_id ), admin_url( 'edit.php?post_type=product' ) );
 	}
 
 	/**
@@ -319,7 +320,7 @@ class WC_Product_Barcodes extends WC_Integration {
 			            } );
 
         				var product_ids = checked.join( ',' );
-        				url = 'edit.php?post_type=product&page=product_barcodes&ids=' + product_ids;
+        				url = 'edit.php?post_type=product&page=product_barcodes&product_ids=' + product_ids;
 
         				window.location = url;
     				}
