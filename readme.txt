@@ -12,8 +12,6 @@ License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
 Allows printing of WooCommerce product labels using a DYMO LabelWriter printer.
 
-== Features ==
-
 - Print barcode labels from the WordPress admin.
 - Select from small, medium and large labels in the settings.
 - Configure what data prints on each label in the settings.
