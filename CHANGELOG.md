@@ -1,5 +1,8 @@
 ### Changelog
 
+#### 1.1.1
+* Fix medium labels printing in landscape.
+
 #### 1.1.0
 * Updated SDK to version 2.0 to support new DYMO label web service and Chrome.
 * Added small barcode label option.
