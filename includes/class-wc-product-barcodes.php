@@ -122,9 +122,10 @@ class WC_Product_Barcodes_Integration extends WC_Integration {
 				'type'         	=> 'select',
 				'css'        	=> 'min-width:300px;',
 				'options'     	=> array(
-					'small'    => __( 'Small - 25mm x 25mm', 'wc-product-barcodes' ),
-					'medium'    => __( 'Medium - 32mm x 57mm', 'wc-product-barcodes' ),
-					'large'     => __( 'Large - 28mm x 89mm', 'wc-product-barcodes' ),
+					'extra_small'    => __( 'Extra Small (30332) - 25mm x 25mm', 'wc-product-barcodes' ),
+					'small'    => __( 'Small (30347) - 25.4mm x 38.1mm', 'wc-product-barcodes' ),
+					'medium'    => __( 'Medium (30334) - 32mm x 57mm', 'wc-product-barcodes' ),
+					'large'     => __( 'Large (30252) - 28mm x 89mm', 'wc-product-barcodes' ),
 				),
 				'default'       => 'medium',
 			),
