@@ -174,6 +174,13 @@ class WC_Product_Barcodes_Integration extends WC_Integration {
 				'default'       => 'yes',
 				'desc_tip'    	=> true,
 			),
+			'name_char_wrap'       	=> array(
+				'title'        	=> __( 'Product Name Character Wrap', 'wc-product-barcodes' ),
+				'description'   => __( 'Characters per line. Words will stay intact', 'wc-product-barcodes' ),
+				'type'         	=> 'number',
+				'class'        	=> 'label-preview-option char-wrap',
+				'default'      	=> '',
+			),
 			'use_sku'      		=> array(
 				'title'        	=> __( 'Barcode Value', 'wc-product-barcodes' ),
 				'label'        	=> __( 'Use product or variant SKU as the barcode value.', 'wc-product-barcodes' ),
@@ -242,8 +249,9 @@ class WC_Product_Barcodes_Integration extends WC_Integration {
 				</div>
 			</div>
 		</div>
-    	<?php
-
+    	<?php $options = get_option( 'woocommerce_product_barcodes_settings' ); ?>
+			<script type='text/javascript'>	var maxCharsPerLine = "<?php echo esc_attr( $options['name_char_wrap']); ?>"; </script>
+			<?php
 		if ( ! class_exists( 'WC_Product_Barcodes_Table' ) ) {
 			return;
 		}
@@ -254,7 +262,7 @@ class WC_Product_Barcodes_Integration extends WC_Integration {
 
 	/**
 	 * Get link for barcode print screen.
-	 * 
+	 *
 	 * @access public
 	 * @param  int $product_id product ID.
 	 * @return string

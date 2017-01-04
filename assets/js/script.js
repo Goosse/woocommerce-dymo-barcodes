@@ -113,7 +113,8 @@ jQuery( function( $ ) {
 
             $( '.wcb_barcodes' ).each( function( index, value ) {
                 var $variation = $( this ),
-                    name = $variation.find( 'input.product-name' ).val(),
+                  //  name = $variation.find( 'input.product-name' ).val(),
+                    name = wrapText($variation.find( 'input.product-name' ).val(), maxCharsPerLine),
                     barcode = $variation.find( 'input.product-barcode' ).val(),
                     metadata = $variation.find( 'input.product-metadata' ).val(),
                     amount = $variation.find( 'input.product-label-input' ).val();
@@ -146,7 +147,8 @@ jQuery( function( $ ) {
             } ).get().join( ' ' );
 
             name = $( '.name:checked' ).map( function() {
-                return $.trim( $( this ).parent().text() );
+              //  return $.trim( $( this ).parent().text() );
+                return wrapText($.trim( $( this ).parent().text(), maxCharsPerLine) );
             } ).get().join( ' ' );
 
             price = $( '.price:checked' ).map( function() {
@@ -196,5 +198,34 @@ jQuery( function( $ ) {
     };
 
     $( window ).on( 'load', wcb.init() );
+
+    function wrapText(text, maxChars) {
+    var ret = [];
+    var words = text.split(/\b/);
+
+    var currentLine = '';
+    var lastWhite = '';
+    words.forEach(function(d) {
+        var prev = currentLine;
+        currentLine += lastWhite + d;
+
+        var l = currentLine.length;
+
+        if (l > maxChars) {
+            ret.push(prev.trim());
+            currentLine = d;
+            lastWhite = '';
+        } else {
+            var m = currentLine.match(/(.*)(\s+)$/);
+            lastWhite = (m && m.length === 3 && m[2]) || '';
+            currentLine = (m && m.length === 3 && m[1]) || currentLine;
+        }
+    });
+
+    if (currentLine) {
+        ret.push(currentLine.trim());
+    }
+    return ret.join("\n");
+}
 
 } );
