@@ -104,7 +104,7 @@ class WC_Product_Barcodes_Table extends WP_List_Table {
 	 * @param mixed $column_name column name.
 	 */
 	public function column_default( $product, $column_name ) {
-		$action_id = $product->is_type( 'variation' ) ? $product->parent->id : $product->id;
+		$action_id = $product->is_type( 'variation' ) ? $product->get_parent_id() : $product->get_id();
 
 		switch ( $column_name ) {
 			case 'product_image' :
@@ -160,7 +160,7 @@ class WC_Product_Barcodes_Table extends WP_List_Table {
 				if ( $sku = $product->get_sku() ) {
 					$barcode = $sku;
 				} else {
-					$barcode = $product->id;
+					$barcode = $product->get_id();
 				}
 
 				$metadata = array();

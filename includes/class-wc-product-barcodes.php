@@ -400,7 +400,7 @@ class WC_Product_Barcodes_Integration extends WC_Integration {
 					$fields[] = $_product->get_title();
 					$fields[] = wc_format_decimal( $_product->get_price(), 2 );
 					$fields[] = $_product->get_sku();
-					$fields[] = $_product->id;
+					$fields[] = $_product->get_id();
 
 					fputcsv( $csv, $fields );
 				}
