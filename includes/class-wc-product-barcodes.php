@@ -42,7 +42,7 @@ class WC_Product_Barcodes_Integration extends WC_Integration {
 		$this->init_settings();
 
 		$this->label_size	= $this->get_option( 'label_size' );
-		$this->debug 		= apply_filters( 'wcb_debug', true );
+		$this->debug 	= apply_filters( 'wcb_debug', true );
 
 		// Save settings.
 		add_action( 'woocommerce_update_options_integration_' . $this->id, array( $this, 'process_admin_options' ) );
@@ -56,6 +56,7 @@ class WC_Product_Barcodes_Integration extends WC_Integration {
 		add_action( 'admin_menu', array( $this, 'register_submenu_page' ) );
 		add_action( 'admin_notices', array( $this, 'error_admin_notice' ) );
 		add_action( 'load-edit.php', array( $this, 'do_bulk_export_action' ) );
+		add_action(	'add_meta_boxes', array( $this, 'add_print_meta_box') );
 		add_filter( 'admin_footer', array( $this, 'add_bulk_actions' ) );
 	}
 
@@ -67,7 +68,7 @@ class WC_Product_Barcodes_Integration extends WC_Integration {
 	 * @return void
 	 */
 	public function load_admin_styles( $hook ) {
-		if ( 'product_page_product_barcodes' === $hook || 'woocommerce_page_wc-settings' === $hook ) {
+		if ( 'product_page_product_barcodes' === $hook || 'woocommerce_page_wc-settings' === $hook || 'post.php' === $hook || 'post-new.php' === $hook) {
 
 			$suffix = $this->debug || ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 
@@ -258,6 +259,67 @@ class WC_Product_Barcodes_Integration extends WC_Integration {
 
 		$report = new WC_Product_Barcodes_Table();
 		$report->output_report();
+	}
+
+	function add_print_meta_box()
+	{
+    	add_meta_box("print-barcode-meta-box", "Print Barcode Label", array($this, "print_barcode_box_markup"), "product", "side", null, null);
+	}
+
+	function print_barcode_box_markup(){
+
+		global $post, $thepostid, $product_object;
+		$thepostid = $post->ID;
+		if ($thepostid == null){
+			echo "<p>Error: No post ID</p>";
+			return;
+		}
+		$product = wc_get_product( $thepostid );
+
+		?>
+		<p>
+			<select id="woocommerce_product_barcodes_dymo_printer">
+				<option value=""><?php echo __( 'Choose printer', 'wc-product-barcodes' ); ?>&hellip;</option>
+			</select>
+		</p>
+		<p class="wcb_barcodes">
+			<input style="width:40%;margin-right:5%;" type='number' class='product-label-input' value='1' min='1' tabindex='1'>
+		<?php
+		$options = get_option( 'woocommerce_product_barcodes_settings' );
+
+		if ( $sku = $product->get_sku() ) {
+			$barcode = $sku;
+		} else {
+			$barcode = $product->get_id();
+		}
+
+		$metadata = array();
+
+		$metadata[] = 'yes' === $options['show_price'] ? get_woocommerce_currency_symbol() . wc_format_decimal( $product->get_price(), 2 ) : '';
+		$metadata[] = 'yes' === $options['show_sku'] ? $barcode : '';
+
+		// Get variation data.
+		if ( $product->is_type( 'variation' ) ) {
+
+			$meta_list = array();
+
+			$formatted_meta = $this->get_formated_meta( $product );
+
+			if ( ! empty( $formatted_meta ) ) {
+				foreach ( $formatted_meta as $meta ) {
+					$meta_list[] = $meta['value'];
+				}
+			}
+
+			$metadata[] = 'yes' === $options['show_option'] ? join( ' / ', $meta_list ) : '';
+		}
+
+		?>
+			<input type='hidden' class='product-edit-page' value='true'>
+			<button type="button" id="wcb_print" class="button button-primary" disabled="disabled"><?php echo __( 'Print <span class="print_no"></span> barcodes', 'wc-product-barcodes' ); ?></button>
+		</p>
+		<script type='text/javascript'>	var maxCharsPerLine = "<?php echo esc_attr( $options['name_char_wrap']); ?>"; </script>
+		<?php
 	}
 
 	/**

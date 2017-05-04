@@ -71,6 +71,7 @@ jQuery( function( $ ) {
                     // When appended choose first option.
                     $( '#woocommerce_product_barcodes_dymo_printer' ).find( 'option' ).eq( i + 1 ).prop( 'selected', true );
                 }
+                wcb.updatePrintButton();
             } );
         },
         getLabel: function( size ) {
@@ -112,12 +113,22 @@ jQuery( function( $ ) {
             var labelSetXml = new dymo.label.framework.LabelSetBuilder();
 
             $( '.wcb_barcodes' ).each( function( index, value ) {
-                var $variation = $( this ),
+                var $variation = $( this );
                   //  name = $variation.find( 'input.product-name' ).val(),
-                    name = wrapText($variation.find( 'input.product-name' ).val(), maxCharsPerLine),
-                    barcode = $variation.find( 'input.product-barcode' ).val(),
-                    metadata = $variation.find( 'input.product-metadata' ).val(),
-                    amount = $variation.find( 'input.product-label-input' ).val();
+                    if ($variation.find( 'input.product-edit-page' ).val() == "true"){
+                      console.log("edit page");
+                      var name = wrapText($( '#title' ).val(), maxCharsPerLine),
+                      barcode = $( 'input#_sku' ).val(),
+                      metadata = $( '#_sale_price' ).val() ? $( '#_sale_price' ).val() : $( '#_regular_price' ).val();
+                      metadata = "$" + parseFloat(metadata).toFixed(2);
+                      }
+                    else{
+                      var name = wrapText($variation.find( 'input.product-name' ).val(), maxCharsPerLine),
+                      barcode = $variation.find( 'input.product-barcode' ).val(),
+                      metadata = $variation.find( 'input.product-metadata' ).val();
+                    }
+
+                    var amount = $variation.find( 'input.product-label-input' ).val();
 
                 for ( var i = 0; i < parseInt( amount ); i++ ) {
                     var record = labelSetXml.addRecord();
@@ -179,9 +190,9 @@ jQuery( function( $ ) {
         updatePrintButton: function() {
             var barcodes = 0,
                 $printButton = $( '#wcb_print' );
-
             $( '.product-label-input' ).each( function() {
                 barcodes += Number( $( this ).val() );
+
             } );
 
             if ( barcodes > 0 ) {

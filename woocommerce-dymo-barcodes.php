@@ -57,7 +57,7 @@ if ( ! class_exists( 'WC_Product_Barcodes' ) ) :
 			$updater = PucFactory::getLatestClassVersion( 'PucGitHubChecker' );
 
 			if ( class_exists( $updater ) ) {
-				$checker = new $updater( 'https://github.com/jackgregory/woocommerce-dymo-barcodes/', __FILE__, 'master' );
+				$checker = new $updater( 'https://github.com/Goosse/woocommerce-dymo-barcodes/', __FILE__, 'master' );
 			}
 		}
 	}
